@@ -6,7 +6,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, SignInComponent],
-  template: `<app-sign-in />`,
+  template: `<router-outlet />`,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

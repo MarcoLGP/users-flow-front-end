@@ -10,5 +10,5 @@ import { registerLocaleData } from '@angular/common';
 registerLocaleData(locale_pt_BR);
 
 export const appConfig: ApplicationConfig = {
-  providers: [ provideRouter(routes), provideClientHydration(), { provide: LOCALE_ID, useValue: 'pt-BR' }]
+  providers: [ provideRouter(routes), provideClientHydration(), { provide: LOCALE_ID, useValue: 'pt-BR' }],
 };
