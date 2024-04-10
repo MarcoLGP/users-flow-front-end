@@ -5,6 +5,20 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.app_button {
+    width: 100%;
+    border: none;
+    padding: 10px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.red_app_button {
+    color: #fff;
+    background-color: #c3002e;
+} + .app_button
+
 input:focus {
     outline: none;
 }

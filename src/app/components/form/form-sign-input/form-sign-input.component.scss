@@ -1,0 +1,19 @@
+:host {
+  display: block;
+  
+  .input_container {
+    display: flex;
+    align-items: center;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    gap: 5px;
+    width: 400px;
+    margin-top: 5px;
+  }
+
+  .input_container > input {
+    border: none;
+    width: 100%;
+  }
+}

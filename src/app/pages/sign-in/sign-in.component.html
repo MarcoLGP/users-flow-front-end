@@ -1,4 +1,20 @@
 <app-sign-layout>
-    <app-sign-input inputLabel="Usuário" [icon]="userIcon" placeholder="Digite seu nome" />
-    <app-sign-input inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" />
+    <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
+        <app-form-sign-input [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
+        @if(isSubmitted && name?.errors?.['errorMessage']) {
+            <p class="callback_error">* {{name?.errors?.['errorMessage']}}</p>
+        }
+        <app-form-sign-input [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
+        @if(isSubmitted && password?.errors?.['errorMessage']) {
+            <p class="callback_error">* {{password?.errors?.['errorMessage']}}</p>
+        }
+        <span class="forgot_password_label">Esqueci minha senha</span>
+        <button class="red_app_button">Entrar</button>
+    </form>
+    <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
+        <div style="width: 160px; height: 1px; background-color: #ccc;"></div>
+        <span>ou</span>
+        <div style="width: 160px; height: 1px; background-color: #ccc;"></div>
+    </div>
+    <button [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button">Registrar</button>
 </app-sign-layout>
