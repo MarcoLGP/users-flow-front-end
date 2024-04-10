@@ -1,0 +1,16 @@
+:host {
+  display: block;
+
+  .divider_or_container {
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-top: 10px;
+  }
+
+  .divider_or_line {
+    width: 160px; 
+    height: 1px; 
+    background-color: #ccc;
+  }
+}

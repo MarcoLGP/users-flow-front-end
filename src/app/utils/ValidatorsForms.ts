@@ -5,11 +5,12 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
 export function validatorNameSign(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
+        const value: string = control.value;
         
-        if (validateMaxCharacterLength(control.value, 40)) 
+        if (validateMaxCharacterLength(value, 40)) 
             return { errorMessage: "Digite um nome com até 40 caracteres" };
 
-        else if (validateMinCharacterLength(control.value, 5))
+        else if (validateMinCharacterLength(value, 5))
             return { errorMessage: "Digite um nome com pelo menos 5 caracteres" };
 
         else return null;
@@ -18,17 +19,17 @@ export function validatorNameSign(): ValidatorFn {
 
 export function validatorPasswordSign(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-        
-         if (validateMaxCharacterLength(control.value, 40))
+        const value: string = control.value;
+
+         if (validateMaxCharacterLength(value, 40))
             return { errorMessage: "Digite uma senha com até 40 caracteres" };
 
-        else if (validateMinCharacterLength(control.value, 5))
+        else if (validateMinCharacterLength(value, 5))
             return { errorMessage: "Digite uma senha com pelo menos 5 caracteres" };
 
         else return null;
     };
 };
-
 
 // Funções de apoio aos validadores
 

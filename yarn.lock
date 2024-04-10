@@ -1543,10 +1543,10 @@
   dependencies:
     tslib "^2.2.0"
 
-"@ng-icons/heroicons@^27.2.0":
+"@ng-icons/ionicons@^27.2.0":
   version "27.2.0"
-  resolved "https://registry.yarnpkg.com/@ng-icons/heroicons/-/heroicons-27.2.0.tgz#ad7ad7c1dec6819adf9f0bbd61ea7feff6b18f3f"
-  integrity sha512-LFSf6RV8rItGVykw1ZD/gX7qGen4/+jeIfCoYgcONMUeR72hWoHYrSIZLR3CV1d0DLI9piErdSCI5gPzA4ZKaA==
+  resolved "https://registry.yarnpkg.com/@ng-icons/ionicons/-/ionicons-27.2.0.tgz#651231b483296f023340b828dc368d0e7c4af8ae"
+  integrity sha512-NghI81rtrLhUPkkBzHjwxmvVzmbLr0QKR968MaPzfhdp0BEZQyhzzpUay1VpWuvqlEG4nUQ+JUhQMH2F4rD9BA==
   dependencies:
     tslib "^2.2.0"
 

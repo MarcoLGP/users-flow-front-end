@@ -14,7 +14,14 @@
     font-size: 15px;
 }
 
+.callback_error {
+    font-size: 14px;
+    color: red;
+    margin: 5px;
+  }
+
 .red_app_button {
+    @extend .app_button;
     color: #fff;
     background-color: #c3002e;
 }

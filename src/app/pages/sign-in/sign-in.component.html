@@ -9,12 +9,8 @@
             <p class="callback_error">* {{password?.errors?.['errorMessage']}}</p>
         }
         <span class="forgot_password_label">Esqueci minha senha</span>
-        <button class="red_app_button">Entrar</button>
+        <button [style.marginTop]="'18px'" class="red_app_button">Entrar</button>
     </form>
-    <div style="display: flex; align-items: center; gap: 15px; margin-top: 10px;">
-        <div style="width: 160px; height: 1px; background-color: #ccc;"></div>
-        <span>ou</span>
-        <div style="width: 160px; height: 1px; background-color: #ccc;"></div>
-    </div>
-    <button [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button">Registrar</button>
+    <app-divider-or />
+    <button (click)="navigateToSignUp()" [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button">Registrar</button>
 </app-sign-layout>

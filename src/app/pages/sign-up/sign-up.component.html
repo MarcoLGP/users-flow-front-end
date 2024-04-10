@@ -1,0 +1,19 @@
+<app-sign-layout>
+    <form [formGroup]="signUpForm" (ngSubmit)="submitFormSignUp()">
+        <app-form-sign-input [inputFormGroup]="signUpForm" inputLabel="Nome" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
+        @if(isFormSubmitted && name?.errors?.['errorMessage']) {
+            <p class="callback_error">* {{name?.errors?.['errorMessage']}}</p>
+        }
+        <app-form-sign-input [inputFormGroup]="signUpForm" inputLabel="Email" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
+        @if(isFormSubmitted && email?.errors) {
+            <p class="callback_error">* Digite um e-mail válido</p>
+        }
+        <app-form-sign-input [inputFormGroup]="signUpForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
+        @if(isFormSubmitted && password?.errors?.['errorMessage']) {
+            <p class="callback_error">* {{password?.errors?.['errorMessage']}}</p>
+        }
+        <button type="submit" style="margin-top: 20px;" class="red_app_button">Registrar</button>
+    </form>
+    <app-divider-or />
+    <button (click)="navigateToSignIn()" [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button" >Fazer login</button>
+</app-sign-layout>

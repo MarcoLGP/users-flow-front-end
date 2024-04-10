@@ -1,26 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DividerOrComponent } from '@components/divider-or/divider-or.component';
 import { FormSignInputComponent } from '@components/form/form-sign-input/form-sign-input.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
-import { heroUser, heroLockClosed } from '@ng-icons/heroicons/outline';
+import { ionPersonOutline, ionLockClosedOutline } from '@ng-icons/ionicons';
 import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsForms';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [SignLayoutComponent, FormSignInputComponent, ReactiveFormsModule, CommonModule],
+  imports: [SignLayoutComponent, FormSignInputComponent, ReactiveFormsModule, CommonModule, DividerOrComponent],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignInComponent {
-  public userIcon = heroUser;
-  public lockIcon = heroLockClosed;
+  public userIcon = ionPersonOutline;
+  public lockIcon = ionLockClosedOutline;
   public signInForm: FormGroup;
   public isSubmitted: boolean = false;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private _router: Router) {
     this.signInForm = this._fb.group({
       name: ["", validatorNameSign()],
       password: ["", validatorPasswordSign()]
@@ -38,4 +40,8 @@ export class SignInComponent {
   public submitForm() {
     this.isSubmitted = true;
   };
+
+  public navigateToSignUp() {
+   this._router.navigateByUrl("/register");
+  }
 }
