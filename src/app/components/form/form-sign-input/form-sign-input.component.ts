@@ -15,7 +15,7 @@ export class FormSignInputComponent {
   @Input({ required: true }) inputLabel!: string;
   @Input({ required: true }) icon!: string;
   @Input({ required: true }) placeholder!: string;
-  @Input() typeInput: 'text' | 'password' = 'text';
+  @Input() typeInput: string = 'text';
   @Input({required: true}) inputControlName!: string;
   @Input({ required: true }) inputFormGroup!: FormGroup;
 }

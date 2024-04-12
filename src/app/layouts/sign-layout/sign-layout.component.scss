@@ -13,18 +13,19 @@
 
   .sign_box_content {
     background: #fff;
-    padding: 15px;
+    padding: 40px 10px;
     border: 1px solid #ccc;
     border-radius: 15px;
-    width: 500px;
+    width: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .sign_box__content_header_container {
+  .sign_box_content_header_container {
     display: flex;
     align-items: center;
+    margin-top: -25px;
   }
 
   .sign_box_content_header_title {
