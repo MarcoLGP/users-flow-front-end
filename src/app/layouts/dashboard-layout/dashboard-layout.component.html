@@ -1,0 +1,17 @@
+<section>
+    <aside>
+        <div class="dashboard_aside_user">
+            <img class="dashboard_aside_user_img" ngSrc="assets/images/icon-user.svg" height="110" width="110" />
+            <span class="dashboard_aside_user_name">Marco Luca</span>
+        </div>
+        <div class="dashboard_aside_operations">
+            <ng-icon (click)="navigateToHome()" color="#2680EE" [svg]="homeIcon" size="20px" />
+            <ng-icon (click)="navigateToConfiguration()" [svg]="settingsIcon" size="20px" />
+            <ng-icon color="red" [svg]="exitIcon" size="20px" />
+        </div>
+        <span class="dashboard_aside_user_name">UsersFlow</span>
+    </aside>
+    <content class="dashboard_content_container">
+        <ng-content />
+    </content>
+</section>

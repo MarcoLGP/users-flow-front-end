@@ -1,0 +1,17 @@
+:host {
+  display: block;
+
+  .note_tools_bar {
+    background-color: #BBD4F3;
+    padding: 11px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #fff;
+  }
+
+  .note_tools_bar > ng-icon {
+    cursor: pointer;
+  }
+}
