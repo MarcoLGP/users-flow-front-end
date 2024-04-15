@@ -11,4 +11,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class ConfigItemCardComponent {
   @Input({ required: true }) Title!: string;
   @Input({ required: true }) Description!: string;
+  @Input() customIsExpanded: boolean = false;
+
+  public isExpanded: boolean = false;
 }

@@ -1,6 +1,4 @@
-<label [formGroup]="inputFormGroup">
-    <div class="input_container">
-        <ng-icon size="19px" [svg]="icon" />
-        <input [type]="typeInput" [placeholder]="placeholder" [formControlName]="inputControlName" />
-    </div>
-</label>
+<div [formGroup]="inputFormGroup" class="input_container">
+    <ng-icon size="19px" [svg]="icon" />
+    <input [type]="typeInput" [placeholder]="placeholder" [formControlName]="inputControlName" />
+</div>

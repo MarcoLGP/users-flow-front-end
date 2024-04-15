@@ -20,4 +20,27 @@
     flex-wrap: wrap;
     gap: 20px;
   }
+
+  .forms_container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    margin-top: 8px;
+    gap: 5px;
+  }
+  
+  .config_button_form {
+    margin-top: 8px;
+  }
+
+  @keyframes slide-down {
+    0% {
+        transform: translateY(-60px);
+    }
+  }
+
+  .animation-slide-down {
+    animation: slide-down 0.7s;
+  }
 }

@@ -1,6 +1,6 @@
 <app-sign-layout>
-    <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
-        <app-form-sign-input [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
+    <form style="width: 80%;" [formGroup]="signInForm" (ngSubmit)="submitForm()">
+        <app-form-sign-input style="margin-bottom: 6px;" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
         @if(isSubmitted && name?.errors?.['errorMessage']) {
             <p class="callback_error">* {{name?.errors?.['errorMessage']}}</p>
         }

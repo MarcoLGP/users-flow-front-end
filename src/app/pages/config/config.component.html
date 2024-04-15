@@ -4,10 +4,29 @@
             <span class="config_content_header_title">Configurações</span>
         </div>
         <div class="config_content_body">
-            <app-config-item-card Title="Alterar senha" Description="Alterar sua senha" />
-            <app-config-item-card Title="Alterar email" Description="Alterar o seu email" />
-            <app-config-item-card Title="Alterar nome" Description="Alterar o seu nome" />
-            <app-config-item-card Title="Remover conta" Description="Deletar permanentemente sua conta" />
+            <app-config-item-card [customIsExpanded]="checkHaveValue(oldPassword?.value) || checkHaveValue(newPassword?.value)" Title="Alterar senha" Description="Alterar sua senha">
+                <form class="forms_container animation-slide-down" [formGroup]="changePassForm">
+                    <app-form-sign-input [inputFormGroup]="changePassForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Senha atual" typeInput="password" inputControllerName="oldPassword" inputControlName="oldPassword" />
+                    <app-form-sign-input [inputFormGroup]="changePassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Nova senha" typeInput="password" inputControllerName="newPassword" inputControlName="newPassword" />
+                    <button class="app_button config_button_form">Alterar senha</button>
+                </form>
+            </app-config-item-card>
+            <app-config-item-card [customIsExpanded]="checkHaveValue(oldEmail?.value) || checkHaveValue(newEmail?.value)" Title="Alterar email" Description="Alterar o seu email">
+                <form class="forms_container animation-slide-down" [formGroup]="changeEmailForm">
+                    <app-form-sign-input [inputFormGroup]="changeEmailForm" inputLabel="Email atual" [icon]="mailIcon" placeholder="Email atual" inputControllerName="oldEmail" inputControlName="oldEmail" />
+                    <app-form-sign-input [inputFormGroup]="changeEmailForm" inputLabel="Novo email" [icon]="mailIcon" placeholder="Novo email" inputControllerName="newEmail" inputControlName="newEmail" />
+                    <button class="app_button config_button_form">Alterar email</button>
+                </form>
+            </app-config-item-card>
+            <app-config-item-card [customIsExpanded]="checkHaveValue(name?.value)" Title="Alterar nome" Description="Alterar o seu nome">
+                <form class="forms_container animation-slide-down" [formGroup]="changeNameForm">
+                    <app-form-sign-input [inputFormGroup]="changeNameForm" inputLabel="Nome" [icon]="userIcon" placeholder="Nome" inputControllerName="name" inputControlName="name" />
+                    <button class="app_button config_button_form">Alterar nome</button>
+                </form>
+            </app-config-item-card>
+            <app-config-item-card Title="Remover conta" Description="Deletar permanentemente sua conta">
+                <button class="red_app_button config_button_form animation-slide-down">Deletar conta</button>
+            </app-config-item-card>
         </div>
     </div>
 </app-dashboard-layout>

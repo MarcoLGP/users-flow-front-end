@@ -6,9 +6,14 @@ import { provideClientHydration } from '@angular/platform-browser';
 
 import locale_pt_BR from "@angular/common/locales/pt";
 import { registerLocaleData } from '@angular/common';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(locale_pt_BR);
 
 export const appConfig: ApplicationConfig = {
-  providers: [ provideRouter(routes), provideClientHydration(), { provide: LOCALE_ID, useValue: 'pt-BR' }],
+  providers: [ 
+    provideRouter(routes), 
+    provideClientHydration(), 
+    { provide: LOCALE_ID, useValue: 'pt-BR' }, 
+    provideHttpClient()],
 };
