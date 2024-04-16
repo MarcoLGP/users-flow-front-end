@@ -20,5 +20,9 @@ export const routes: Routes = [
     {
         path: 'configuration',
         component: ConfigComponent
+    },
+    {
+        path: '**',
+        redirectTo: ''
     }
 ];

@@ -5,6 +5,9 @@ import { DividerOrComponent } from '@components/divider-or/divider-or.component'
 import { FormSignInputComponent } from '@components/form/form-sign-input/form-sign-input.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
 import { ionPersonOutline, ionMailOutline, ionLockClosedOutline } from '@ng-icons/ionicons';
+import { AuthService } from 'app/services/auth.service';
+import { LocalStorageService } from 'app/services/local.storage.service';
+import { UserService } from 'app/services/user.service';
 import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsForms';
 
 @Component({
@@ -16,7 +19,13 @@ import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsFo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignUpComponent {
-  constructor (private _fb: FormBuilder, private _router: Router){}
+  constructor (
+    private _fb: FormBuilder, 
+    private _router: Router,
+    private _localStorageService: LocalStorageService,
+    private _authService: AuthService,
+    private _userService: UserService
+  ){}
 
   public userIcon: string = ionPersonOutline; 
   public mailIcon: string = ionMailOutline;
@@ -48,5 +57,18 @@ export class SignUpComponent {
 
   public submitFormSignUp() {
     this.isFormSubmitted = true;
+    this._authService.register$(this.name!.value!, this.email!.value!, this.password!.value!).subscribe({
+      next: (next) => {
+        this._localStorageService.set("token", next.token);
+        this._localStorageService.set("refreshToken", next.refreshToken);
+        this._userService.setUserName(this.name!.value!);
+      },
+      error: (error) => {
+        console.log("Deu erro: ");
+      },
+      complete: () => {
+        this._router.navigateByUrl("/home");
+      }
+    })
   }
 }

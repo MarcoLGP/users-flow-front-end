@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DividerOrComponent } from '@components/divider-or/divider-or.component';
 import { FormSignInputComponent } from '@components/form/form-sign-input/form-sign-input.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
-import { ionPersonOutline, ionLockClosedOutline } from '@ng-icons/ionicons';
-import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsForms';
+import { ionLockClosedOutline, ionMailOutline } from '@ng-icons/ionicons';
+import { AuthService } from 'app/services/auth.service';
+import { LocalStorageService } from 'app/services/local.storage.service';
+import { UserService } from 'app/services/user.service';
+import { validatorPasswordSign } from 'app/utils/ValidatorsForms';
 
 @Component({
   selector: 'app-sign-in',
@@ -17,20 +20,29 @@ import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsFo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignInComponent {
-  public userIcon = ionPersonOutline;
+  public mailIcon = ionMailOutline;
   public lockIcon = ionLockClosedOutline;
   public signInForm: FormGroup;
   public isSubmitted: boolean = false;
 
-  constructor(private _fb: FormBuilder, private _router: Router) {
+  private _token: string | null = null;
+  private _refreshToken: string | null = null;
+
+  constructor(
+    private _fb: FormBuilder, 
+    private _router: Router,
+    private _authService: AuthService,
+    private _localStorageService: LocalStorageService,
+    private _userService: UserService
+  ) {
     this.signInForm = this._fb.group({
-      name: ["", validatorNameSign()],
+      email: ["", Validators.email],
       password: ["", validatorPasswordSign()]
     });
   };
 
-  public get name() {
-    return this.signInForm.get("name");
+  public get email() {
+    return this.signInForm.get("email");
   };
 
   public get password() {
@@ -39,6 +51,21 @@ export class SignInComponent {
 
   public submitForm() {
     this.isSubmitted = true;
+    this._authService.login$(this.email?.value, this.password?.value).subscribe({
+      next: (next) => {
+        this._token = next.token;
+        this._refreshToken = next.refreshToken;
+        this._userService.setUserName(next.name);
+      },
+      error: (error) => {
+        console.log("Erro: " + error.code);
+      },
+      complete: () => {
+        this._localStorageService.set("token", this._token!);
+        this._localStorageService.set("refreshToken", this._refreshToken!);
+        this._router.navigateByUrl("/home");
+      }
+    });
   };
 
   public navigateToSignUp() {

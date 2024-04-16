@@ -1,0 +1,10 @@
+@if (openModal) {
+    <app-modal-root>
+        <h2 class="modal_content_title">Nova nota</h2>
+        <form (ngSubmit)="createNoteFormSubmit()" [formGroup]="createNoteForm">
+            <app-form-sign-input [inputFormGroup]="createNoteForm" inputLabel="Título" [icon]="pencilIcon" placeholder="Título" inputControlName="title" inputLabel="Título" inputControlName="title" />
+            <div (input)="onContentInput($event)" class="note_content" contenteditable="true" data-placeholder="Digite seu texto aqui..."></div>
+            <button style="margin-top: 10px;" type="submit" class="app_button">Criar nota</button>
+        </form>
+    </app-modal-root>
+}

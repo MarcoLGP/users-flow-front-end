@@ -6,7 +6,8 @@ import { provideClientHydration } from '@angular/platform-browser';
 
 import locale_pt_BR from "@angular/common/locales/pt";
 import { registerLocaleData } from '@angular/common';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 registerLocaleData(locale_pt_BR);
 
@@ -15,5 +16,5 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideClientHydration(), 
     { provide: LOCALE_ID, useValue: 'pt-BR' }, 
-    provideHttpClient()],
+    provideHttpClient(withFetch()), provideAnimationsAsync()],
 };

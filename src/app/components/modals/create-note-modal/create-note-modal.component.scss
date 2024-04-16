@@ -1,0 +1,31 @@
+:host {
+  display: block;
+
+  .modal_content_title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .note_content {
+    width: 350px; 
+    border: 1px solid #ccc;
+    padding: 5px;
+    min-height: 100px;
+    font-family: Arial, sans-serif;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word; 
+    outline: none;
+    margin-top: 5px;
+  }
+  
+  .note_content:empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+  }
+  
+  .note_content:focus {
+    border-color: dodgerblue;
+    box-shadow: 0 0 5px dodgerblue;
+  }
+}

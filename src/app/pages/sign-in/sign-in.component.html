@@ -1,8 +1,8 @@
 <app-sign-layout>
     <form style="width: 80%;" [formGroup]="signInForm" (ngSubmit)="submitForm()">
-        <app-form-sign-input style="margin-bottom: 6px;" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
-        @if(isSubmitted && name?.errors?.['errorMessage']) {
-            <p class="callback_error">* {{name?.errors?.['errorMessage']}}</p>
+        <app-form-sign-input style="margin-bottom: 6px;" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
+        @if(isSubmitted && email?.errors?.['errorMessage']) {
+            <p class="callback_error">* {{email?.errors?.['errorMessage']}}</p>
         }
         <app-form-sign-input [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
         @if(isSubmitted && password?.errors?.['errorMessage']) {
