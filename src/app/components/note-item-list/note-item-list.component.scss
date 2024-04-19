@@ -4,25 +4,57 @@
   .note_item {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
+    border: 1px solid #d3d1d1;;
+    border-radius: 5px;
     width: fit-content;
     padding: 20px;
-    gap: 12px;
-    min-width: 230px;
+    gap: 5px;
+    min-width: 300px;
     max-width: 400px;
   }
 
   .note_item_date {
-    color: #ccc;
+    color: #8a8989;
+    font-size: 14px;
+    margin-top: 15px;
   }
 
   .note_item_content {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   .note_item_title {
     font-weight: 700;
-    font-size: 17px;
+    font-size: 14px;
+    color: #c3002e;
+    margin-top: 5px;
+  }
+
+  .note_item_user {
+    display: flex;
+  }
+
+  .note_item_user_info {
+    display: flex;
+    margin-left: 8px;
+    flex-direction: column;
+  }
+
+  .note_item_user_info_name {
+    color: #c3002e;
+  }
+
+  .note_item_user_info_name_text {
+    font-size: 14px;
+    margin-left: 3px;
+    font-weight: 600;
+  }
+
+  .note_item_user_info_role_text {
+    font-size: 14px;
+    margin-left: 3px;
+    color: #8a8989;
+    margin-top: -3px;
   }
 }

@@ -67,7 +67,7 @@ export class SignUpComponent {
         console.log("Deu erro: ");
       },
       complete: () => {
-        this._router.navigateByUrl("/home");
+        this._router.navigateByUrl("/notes");
       }
     })
   }

@@ -1,17 +1,21 @@
 <section>
     <aside>
-        <div class="dashboard_aside_user">
-            <img [priority]="true" class="dashboard_aside_user_img" ngSrc="assets/images/icon-user.svg" height="110" width="110" />
-            <span class="dashboard_aside_user_name">{{userName()}}</span>
-        </div>
+        <app-user-painel />
         <div class="dashboard_aside_operations">
-            <ng-icon (click)="navigateToHome()" color="#2680EE" [svg]="homeIcon" size="20px" />
-            <ng-icon (click)="navigateToConfiguration()" [svg]="settingsIcon" size="20px" />
-            <ng-icon (click)="logout()" color="red" [svg]="exitIcon" size="20px" />
+            <app-dashboard-aside-nav-option-item [icon]="noteIcon" text="Suas notas" routeToNavigate="/notes" />
+            <app-dashboard-aside-nav-option-item [icon]="globeIcon" text="Notas públicas" routeToNavigate="/public-notes" />
+            <app-dashboard-aside-nav-option-item [icon]="settingsIcon" text="Configurações" routeToNavigate="/configuration" />
+            <app-dashboard-aside-nav-option-item [icon]="logoutIcon" text="Sair" routeToNavigate="/logout" />
         </div>
-        <span class="dashboard_aside_user_name">UsersFlow</span>
     </aside>
     <content class="dashboard_content_container">
+        <div class="dashboard_content_header_container">
+            <div class="dashboard_content_header">
+                <ng-icon [svg]="menuIcon" size="20px" />
+                <span class="dashboard_content_header_router">{{titleRoute}}</span>
+                <span class="dashboard_content_header_router_description">/{{descriptionRoute}}</span>
+            </div>
+        </div>
         <ng-content />
     </content>
 </section>

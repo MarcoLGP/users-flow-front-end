@@ -63,7 +63,7 @@ export class SignInComponent {
       complete: () => {
         this._localStorageService.set("token", this._token!);
         this._localStorageService.set("refreshToken", this._refreshToken!);
-        this._router.navigateByUrl("/home");
+        this._router.navigateByUrl("/notes");
       }
     });
   };

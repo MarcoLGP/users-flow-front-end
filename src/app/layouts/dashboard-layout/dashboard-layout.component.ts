@@ -1,8 +1,10 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { DashboardAsideNavOptionItemComponent } from '@components/dashboard-aside-nav-option-item/dashboard-aside-nav-option-item.component';
+import { UserPainelComponent } from '@components/user-painel/user-painel.component';
 import { NgIcon } from '@ng-icons/core';
-import { ionExit, ionHome, ionSettings } from '@ng-icons/ionicons';
+import { ionDocumentTextSharp, ionGlobeOutline, ionLogOut, ionMenu, ionSettings } from '@ng-icons/ionicons';
 import { AuthService } from 'app/services/auth.service';
 import { LocalStorageService } from 'app/services/local.storage.service';
 import { UserService } from 'app/services/user.service';
@@ -10,7 +12,7 @@ import { UserService } from 'app/services/user.service';
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [NgIcon, NgOptimizedImage],
+  imports: [NgIcon, NgOptimizedImage, UserPainelComponent, DashboardAsideNavOptionItemComponent],
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,10 +24,15 @@ export class DashboardLayoutComponent implements OnInit {
     private _localStorageService: LocalStorageService,
     private _authService: AuthService
   ){};
+
+  @Input({ required: true }) public titleRoute!: string;
+  @Input({ required: true }) public descriptionRoute!: string;
   
-  public homeIcon: string = ionHome;
+  public menuIcon: string = ionMenu;
+  public globeIcon: string = ionGlobeOutline;
+  public noteIcon: string = ionDocumentTextSharp;
   public settingsIcon: string = ionSettings;
-  public exitIcon: string = ionExit;
+  public logoutIcon: string = ionLogOut;
 
   public userName = signal("");
 

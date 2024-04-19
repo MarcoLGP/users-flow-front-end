@@ -21,8 +21,7 @@ export class NoteService {
 
   public addNote(note: IAddNote): Observable<any> {
     const token = this.localStorageService.get('token');
-    console.log(note);
-    return this._httpClient.post(`${environment.apiUrl}/Note`, { Title: note.title, Content: note.content }, { headers: { Authorization: `Bearer ${token}` } });
+    return this._httpClient.post(`${environment.apiUrl}/Note`, { ...note }, { headers: { Authorization: `Bearer ${token}` } });
   };
 
   public deleteNote(id: number): Observable<any> {

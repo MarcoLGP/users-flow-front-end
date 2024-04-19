@@ -1,6 +1,8 @@
 <div class="note_tools_bar">
-    <ng-icon [svg]="trashIcon" color="red" size="20px" />
+    <ng-icon [svg]="trashIcon" size="20px" />
     <ng-icon [svg]="pencilIcon" size="20px" />
-    <ng-icon [svg]="addIcon" size="22px" />
+    <ng-icon (click)="setOpenAddNoteModal()" [svg]="addIcon" size="22px" />
 </div>
-<app-create-note-modal [openModal]="openAddNoteModal" />
+@if(openAddNoteModal()) {
+    <app-create-note-modal [setOpenAddNoteModal]="openAddNoteModal" />
+}

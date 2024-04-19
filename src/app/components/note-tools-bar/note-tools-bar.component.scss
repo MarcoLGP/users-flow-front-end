@@ -2,13 +2,14 @@
   display: block;
 
   .note_tools_bar {
-    background-color: #BBD4F3;
-    padding: 11px;
+    background-color: #c3002e;
+    padding: 6px;
     border-radius: 5px;
     display: flex;
     align-items: center;
     gap: 15px;
     color: #fff;
+    width: fit-content;
   }
 
   .note_tools_bar > ng-icon {

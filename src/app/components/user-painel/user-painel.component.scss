@@ -1,0 +1,29 @@
+:host {
+  display: block;
+
+  .user_painel {
+    min-width: 235px;
+    color: #c3002e;
+    background-color: #f3f2fa;
+    border-top: solid 4px #c3002e;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+  }
+
+  .user_painel_name {
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .user_painel_role {
+    display: flex;
+    gap: 5px;
+  }
+
+  .user_painel_role_text {
+    font-size: 13px;
+  }
+}

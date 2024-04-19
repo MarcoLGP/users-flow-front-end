@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { CreateNoteModalComponent } from '@components/modals/create-note-modal/create-note-modal.component';
 import { NgIcon } from '@ng-icons/core';
 import { ionTrashOutline, ionPencilOutline, ionLockClosedOutline, ionAddOutline } from '@ng-icons/ionicons';
@@ -18,9 +18,10 @@ export class NoteToolsBarComponent {
   public lockIcon: string = ionLockClosedOutline;
   public addIcon: string = ionAddOutline;
 
-  public openAddNoteModal: boolean = false;
+  public openAddNoteModal = signal(false);
 
   public setOpenAddNoteModal() {
-    this.openAddNoteModal = true;
+    this.openAddNoteModal.set(true);
   };
+
 }

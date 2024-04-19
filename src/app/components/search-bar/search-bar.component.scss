@@ -4,15 +4,29 @@
   form {
     display: flex;
     align-items: center;
-    background-color: #fff;
-    width: fit-content;
-    padding: 10px;
+    border-radius: 4px;
+    justify-content: space-between;
+    background-color: #f9f8fd;
   }
 
   input {
     border: none;
-    margin-left: 15px;
-    width: 250px;
     font-family: Roboto;
+    width: 98%;
+    margin-left: 15px;
+    background-color: transparent;
+  }
+
+  .search_icon_container {
+    height: 41px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    background-color: #c3002e;
+    color: #fff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
   }
 }

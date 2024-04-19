@@ -4,6 +4,7 @@ import {
   ElementRef,
   Input,
   ViewChild,
+  WritableSignal,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,14 +23,21 @@ import { NoteService } from 'app/services/note.service';
 })
 export class CreateNoteModalComponent {
   @ViewChild('noteContent') noteContentRef!: ElementRef;
-  constructor(private _fb: FormBuilder, private _noteService: NoteService, private _router: Router) {}
-  @Input({ required: true }) public openModal: boolean = false;
+  constructor(
+    private _fb: FormBuilder,
+    private _noteService: NoteService,
+    private _router: Router
+  ) {};
+
+  @Input({ required: true }) public setOpenAddNoteModal!: WritableSignal<boolean>;
 
   public pencilIcon = ionPencil;
 
   public createNoteForm = this._fb.group({
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
+    locked: [false],
+    public: [true]
   });
 
   get title() {
@@ -37,24 +45,32 @@ export class CreateNoteModalComponent {
   }
 
   public createNoteFormSubmit() {
-    console.log("Submit")
     this._noteService
       .addNote({
         title: this.createNoteForm.get('title')!.value!,
         content: this.createNoteForm.get('content')!.value!,
+        locked: this.createNoteForm.get('locked')!.value!,
+        public: this.createNoteForm.get('public')!.value!
       })
       .subscribe({
         next: () => {
-          console.log("Next");
+          console.log('Next');
         },
         error: (error) => {
           console.log(error);
         },
         complete: () => {
-          console.log("Complete");
-          this._router.navigateByUrl("/home");
+          this.setOpenAddNoteModal.set(false);
         }
       });
+  };
+
+  get locked() {
+    return this.createNoteForm.get('locked');
+  };
+
+  get public () {
+    return this.createNoteForm.get('public');
   }
 
   onContentInput(event: any) {

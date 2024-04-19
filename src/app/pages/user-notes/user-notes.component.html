@@ -1,0 +1,18 @@
+<app-dashboard-layout titleRoute="Notas" descriptionRoute="Suas notas">
+    <div class="user_notes_container">
+        <div class="user_notes_content">
+           <div style="display: flex; justify-content: space-between;">
+                <h3 style="margin-bottom: 10px;">Suas notas ({{userNotes().length}})</h3>
+                <app-note-tools-bar style="margin-top: -8px;" />
+           </div>
+            <div class="user_notes_header">
+                <app-search-bar style="width: 100%;" />
+            </div>
+            <div class="user_notes_list_container">
+                @for (item of userNotes(); track $index) {
+                    <app-note-item-list (click)="setNoteSelected($index)" [title]="item.title" [content]="item.content" [date]="(item.created | date:'dd/MM/yyyy')!" [selected]="indexSelected() == $index" />
+                }
+            </div>
+        </div>
+    </div>
+</app-dashboard-layout>

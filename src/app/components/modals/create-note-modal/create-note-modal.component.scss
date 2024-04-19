@@ -7,10 +7,10 @@
   }
 
   .note_content {
-    width: 350px; 
+    max-width: 588px; 
     border: 1px solid #ccc;
     padding: 5px;
-    min-height: 100px;
+    height: 280px;
     font-family: Arial, sans-serif;
     overflow-y: auto;
     white-space: pre-wrap;
@@ -23,9 +23,28 @@
     content: attr(data-placeholder);
     color: #999;
   }
-  
-  .note_content:focus {
-    border-color: dodgerblue;
-    box-shadow: 0 0 5px dodgerblue;
+
+  .modal_buttons {
+    display: flex;
+    margin-top: 15px;
+    gap: 15px;
   }
+
+  .modal_cancel_button {
+    width: 250px;
+  }
+
+  .modal_content_select_container {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    gap: 15px;
+    margin-top: 5px;
+  }
+
+  .modal_content_select {
+    padding: 5px;
+    border-radius: 5px;
+  }
+
 }
