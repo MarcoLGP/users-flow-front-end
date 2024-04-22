@@ -1,10 +1,7 @@
 <div class="user_painel">
-    <img ngSrc="assets/images/icon-user.svg" height="60" width="60" />
-    <div>
+    <app-user-avatar />
+    <div class="user_painel_info">
         <span class="user_painel_name">{{userName() || "Marco Luca"}}</span>
-        <div class="user_painel_role">
-            <ng-icon [svg]="peopleIcon" size="15px" />
-            <span class="user_painel_role_text">Usuário</span>
-        </div>
+        <span class="user_painel_role_text">Usuário</span>
     </div>
 </div>

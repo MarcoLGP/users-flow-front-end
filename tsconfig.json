@@ -9,7 +9,10 @@
       "@components/*": ["app/components/*"],
       "@layouts/*":["app/layouts/*"],
       "@pages/*":["app/pages/*"],
-      "@assets/*":["app/assets/*"]
+      "@assets/*":["app/assets/*"],
+      "@services/*":["app/services/*"],
+      "@models/*":["app/models/*"],
+      "@utils/*":["app/utils/*"],
     },
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

@@ -1,15 +1,18 @@
-export interface INote {
-    noteId: number;
+// Interface base para campos comuns entre todas as notas
+export interface INoteBase {
     title: string;
     content: string;
     locked: boolean;
     public: boolean;
-    created: string;
-};
+}
 
-export interface IAddNote {
-    title: string;
-    content: string;
-    locked: boolean;
-    public: boolean;
-};
+export interface INoteCreate extends INoteBase {}
+
+export interface INoteSelected extends INoteBase {
+    noteId: number;
+}
+
+export interface INote extends INoteBase {
+    noteId: number;
+    created: string;
+}

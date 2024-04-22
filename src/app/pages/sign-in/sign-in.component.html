@@ -1,14 +1,9 @@
 <app-sign-layout>
-    <form style="width: 80%;" [formGroup]="signInForm" (ngSubmit)="submitForm()">
-        <app-form-sign-input style="margin-bottom: 6px;" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
-        @if(isSubmitted && email?.errors?.['errorMessage']) {
-            <p class="callback_error">* {{email?.errors?.['errorMessage']}}</p>
-        }
-        <app-form-sign-input [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
-        @if(isSubmitted && password?.errors?.['errorMessage']) {
-            <p class="callback_error">* {{password?.errors?.['errorMessage']}}</p>
-        }
+    <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
+        <app-form-sign-input [inputError]="handleInputError(email)" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
+        <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
         <span class="forgot_password_label">Esqueci minha senha</span>
+        <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
         <button [style.marginTop]="'18px'" class="red_app_button">Entrar</button>
     </form>
     <app-divider-or />

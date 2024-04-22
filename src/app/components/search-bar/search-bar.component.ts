@@ -12,5 +12,6 @@ import { ionSearch } from "@ng-icons/ionicons";
 })
 export class SearchBarComponent {
   @Input() inputWidth?: number;
+  @Input() placeholder: string = 'Pesquisar';
   public searchIcon: string = ionSearch;
 }

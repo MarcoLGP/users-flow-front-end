@@ -1,4 +1,4 @@
-<div [formGroup]="inputFormGroup" class="input_container">
+<div [formGroup]="inputFormGroup" class="input_container {{inputError ? 'input_container_error' : ''}}">
     <ng-icon style="padding-right: 5px;" size="19px" [svg]="icon" />
     <input [type]="typeInput" [placeholder]="placeholder" [formControlName]="inputControlName" />
 </div>

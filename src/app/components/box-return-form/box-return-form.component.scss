@@ -1,0 +1,29 @@
+:host {
+  display: block;
+
+  .box_return_form {
+    background-color: #ffd8d9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .box_return_form_title {
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .box_return_form_item {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+  }
+
+  .box_return_form_item_row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 2px 0px;
+  }
+}

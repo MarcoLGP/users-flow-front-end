@@ -1,7 +1,0 @@
-<div class="config_item_card" (mouseenter)="isExpanded = true" (mouseleave)="!customIsExpanded && isExpanded = false">
-    <span class="config_item_card_title">{{Title}}</span>
-    <span class="config_item_card_description">{{Description}}</span>
-    @if(isExpanded) {
-        <ng-content class="config_item_card_content" />
-    }
-</div>

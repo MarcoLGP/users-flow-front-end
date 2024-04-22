@@ -1,31 +1,78 @@
-<app-dashboard-layout titleRoute="Configurações" descriptionRoute="Configurações do usuário">
-    <div class="config_content">
-        <div class="config_content_header">
-            <span class="config_content_header_title">Configurações</span>
+<app-dashboard-layout titleRoute="Configurações" descriptionRoute="Configurações da conta">
+    <div class="config_container">
+        <div class="config_user_wallpaper_header">
+            <img src="../../../assets/images/pexels-julius-silver-240301-753312.png" alt="wallpaper" />
+            <div class="config_user_info">
+                <div class="config_user_avatar">
+                    <span>M</span>
+                </div>
+                <span class="config_user_info_name">Marco Luca</span>
+                <div class="config_user_info_status">
+                    <div class="config_user_info_status_item">
+                        <ng-icon [svg]="noteIcon" color="#496784" size="20"/>
+                        <span>Notas privadas: 0</span>
+                    </div>
+                    <div class="config_user_info_status_item">
+                        <ng-icon [svg]="globeIcon" color="#496784" size="20"/>
+                        <span>Notas públicas: 0</span>
+                    </div>
+                    <div class="config_user_info_status_item">
+                        <ng-icon [svg]="calendarIcon" color="#496784" size="20"/>
+                        <span>Registrado em: 21/04/2024</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="config_content_body">
-            <app-config-item-card [customIsExpanded]="checkHaveValue(oldPassword?.value) || checkHaveValue(newPassword?.value)" Title="Alterar senha" Description="Alterar sua senha">
-                <form (ngSubmit)="changePasswordUserFormSubmit()" class="forms_container animation-slide-down" [formGroup]="changePassForm">
-                    <app-form-sign-input [inputFormGroup]="changePassForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Senha atual" typeInput="password" inputControllerName="oldPassword" inputControlName="oldPassword" />
-                    <app-form-sign-input [inputFormGroup]="changePassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Nova senha" typeInput="password" inputControllerName="newPassword" inputControlName="newPassword" />
-                    <button class="app_button config_button_form">Alterar senha</button>
-                </form>
-            </app-config-item-card>
-            <app-config-item-card [customIsExpanded]="checkHaveValue(newEmail?.value)" Title="Alterar email" Description="Alterar o seu email">
-                <form (ngSubmit)="changeEmailUserFormSubmit()" class="forms_container animation-slide-down" [formGroup]="changeEmailForm">
-                    <app-form-sign-input [inputFormGroup]="changeEmailForm" inputLabel="Novo email" [icon]="mailIcon" placeholder="Novo email" inputControllerName="newEmail" inputControlName="newEmail" />
-                    <button class="app_button config_button_form">Alterar email</button>
-                </form>
-            </app-config-item-card>
-            <app-config-item-card [customIsExpanded]="checkHaveValue(name?.value)" Title="Alterar nome" Description="Alterar o seu nome">
-                <form (ngSubmit)="changeNameUserFormSubmit()" class="forms_container animation-slide-down" [formGroup]="changeNameForm">
-                    <app-form-sign-input [inputFormGroup]="changeNameForm" inputLabel="Nome" [icon]="userIcon" placeholder="Nome" inputControllerName="name" inputControlName="name" />
-                    <button class="app_button config_button_form">Alterar nome</button>
-                </form>
-            </app-config-item-card>
-            <app-config-item-card Title="Remover conta" Description="Deletar permanentemente sua conta">
-                <button (click)="deleteUser()" class="red_app_button config_button_form animation-slide-down">Deletar conta</button>
-            </app-config-item-card>
+        <div class="config_user_form">
+            <div class="config_user_box">
+                <h2 class="config_box_title">Editar configurações da conta:</h2>
+                <app-config-edit-item (click)="handleClickMenu(1)" [firstItem]="true" style="margin-top: 10px;" label="Nome" [icon]="userIcon" />
+                <app-config-edit-item (click)="handleClickMenu(2)" label="Email" [icon]="mailIcon" />
+                <app-config-edit-item (click)="handleClickMenu(3)" label="Senha" [icon]="lockIcon" />
+                <app-config-edit-item style="color: red;" label="Deletar conta" [icon]="trashIcon" />
+            </div>
+
+            @switch (selectedIndexMenu) {
+                @case (1) {
+                    <div class="config_user_box">
+                        <h3 class="config_box_title">Alterar nome:</h3>
+                        <form (ngSubmit)="changeNameUserFormSubmit()" class="config_box_form" [formGroup]="changeNameForm">
+                            <app-form-sign-input [icon]="userIcon" [inputFormGroup]="changeNameForm" placeholder="Seu novo nome" inputLabel="Novo nome" inputControlName="name" />
+                            @if(name?.errors && isNameFormSubmit) {
+                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[name?.errors?.['errorMessage']]" />
+                            }
+                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                        </form>
+                    </div>
+                }
+                @case (2) {
+                    <div class="config_user_box">
+                        <h3 class="config_box_title">Alterar email:</h3>
+                        <form (ngSubmit)="changeEmailUserFormSubmit()" class="config_box_form" [formGroup]="changeEmailForm">
+                            <app-form-sign-input [icon]="mailIcon" [inputFormGroup]="changeEmailForm" placeholder="Seu novo email" inputLabel="Email" inputControlName="newEmail" />
+                            @if(newEmail?.errors && isEmailFormSubmit) {
+                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[newEmail?.errors?.['errorMessage']]" />
+                            }
+                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                        </form>
+                    </div>
+                }
+                @case (3) {
+                    <div class="config_user_box">
+                        <h3 class="config_box_title">Alterar senha:</h3>
+                        <form (ngSubmit)="changePasswordUserFormSubmit()" class="config_box_form" [formGroup]="changePasswordForm">
+                            <app-form-sign-input [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Senha atual" inputLabel="Senha atual" inputControlName="oldPassword" typeInput="password" />
+                            <app-form-sign-input style="margin-top: 5px;" [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Nova senha" inputLabel="Nova senha" inputControlName="newPassword" typeInput="password" />
+                            @if ((newPassword?.errors || oldPassword?.errors) && isPasswordFormSubmit) {
+                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[newPassword?.errors?.['errorMessage']]" />
+                            }
+                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                        </form>
+                    </div>
+                }
+            }
+    
+            
         </div>
     </div>
 </app-dashboard-layout>

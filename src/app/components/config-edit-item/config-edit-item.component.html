@@ -1,0 +1,10 @@
+<div (click)="handleClick()" [style.border-top]="firstItem ? '1px solid #ccc' : ''" class="config_edit_item">
+    <div class="config_edit_item_label_container">
+        <ng-icon style="margin-top: -2px;" [svg]="icon" size="18px" />
+        <span class="config_edit_item_label">{{label}}</span>
+        <ng-icon [svg]="rightChevronIcon" size="17px" />
+    </div>
+    @if(openEditItem) {
+        <ng-content />
+    }
+</div>

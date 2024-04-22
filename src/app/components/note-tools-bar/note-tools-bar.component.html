@@ -1,8 +1,8 @@
 <div class="note_tools_bar">
-    <ng-icon [svg]="trashIcon" size="20px" />
-    <ng-icon [svg]="pencilIcon" size="20px" />
-    <ng-icon (click)="setOpenAddNoteModal()" [svg]="addIcon" size="22px" />
+    <ng-icon (click)="deleteNoteSelected()" [svg]="trashIcon" size="20px" />
+    <ng-icon (click)="setOpenEditNoteModal()" [svg]="pencilIcon" size="20px" />
+    <ng-icon (click)="setOpenCreateNoteModal()" [svg]="addIcon" size="22px" />
 </div>
-@if(openAddNoteModal()) {
-    <app-create-note-modal [setOpenAddNoteModal]="openAddNoteModal" />
+@if(openCreateEditNoteModal()) {
+    <app-create-edit-note-modal [isEdit]="isEdit()" [noteSelected]="noteSelected" [setOpenCreateEditNoteModal]="openCreateEditNoteModal" />
 }

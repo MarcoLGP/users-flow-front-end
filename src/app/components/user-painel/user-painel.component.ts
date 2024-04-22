@@ -1,13 +1,14 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { UserAvatarComponent } from '@components/user-avatar/user-avatar.component';
 import { NgIcon } from '@ng-icons/core';
 import { ionPeople } from '@ng-icons/ionicons';
-import { UserService } from 'app/services/user.service';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-user-painel',
   standalone: true,
-  imports: [NgOptimizedImage, NgIcon],
+  imports: [NgOptimizedImage, NgIcon, UserAvatarComponent],
   templateUrl: './user-painel.component.html',
   styleUrl: './user-painel.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush

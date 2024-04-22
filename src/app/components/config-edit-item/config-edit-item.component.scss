@@ -1,0 +1,28 @@
+:host {
+  display: block;
+
+  .config_edit_item {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc;
+    justify-content: space-between;
+    padding: 8px 0px;
+    cursor: pointer;
+  }
+
+  .config_edit_item_label_container {
+    display: flex;
+    align-items: center;
+  }
+
+  .config_edit_item_label {
+    font-size: 14px;
+    width: 90%;
+    margin-left: 10px;
+  }
+
+  .config_edit_item_content {
+    display: flex;
+    flex-direction: column;
+  }
+}

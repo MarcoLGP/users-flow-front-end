@@ -18,4 +18,5 @@ export class FormSignInputComponent {
   @Input() typeInput: string = 'text';
   @Input({required: true}) inputControlName!: string;
   @Input({ required: true }) inputFormGroup!: FormGroup;
-}
+  @Input() inputError: boolean = false;
+};

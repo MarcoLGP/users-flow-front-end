@@ -5,9 +5,9 @@ import { DashboardAsideNavOptionItemComponent } from '@components/dashboard-asid
 import { UserPainelComponent } from '@components/user-painel/user-painel.component';
 import { NgIcon } from '@ng-icons/core';
 import { ionDocumentTextSharp, ionGlobeOutline, ionLogOut, ionMenu, ionSettings } from '@ng-icons/ionicons';
-import { AuthService } from 'app/services/auth.service';
-import { LocalStorageService } from 'app/services/local.storage.service';
-import { UserService } from 'app/services/user.service';
+import { AuthService } from '@services/auth.service';
+import { LocalStorageService } from '@services/local.storage.service';
+import { UserService } from '@services/user.service';
 
 @Component({
   selector: 'app-dashboard-layout',

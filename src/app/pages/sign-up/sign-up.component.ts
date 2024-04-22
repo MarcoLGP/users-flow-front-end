@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, WritableSignal, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
 import { DividerOrComponent } from '@components/divider-or/divider-or.component';
-import { FormSignInputComponent } from '@components/form/form-sign-input/form-sign-input.component';
+import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
 import { ionPersonOutline, ionMailOutline, ionLockClosedOutline } from '@ng-icons/ionicons';
-import { AuthService } from 'app/services/auth.service';
-import { LocalStorageService } from 'app/services/local.storage.service';
-import { UserService } from 'app/services/user.service';
-import { validatorNameSign, validatorPasswordSign } from 'app/utils/ValidatorsForms';
+import { AuthService } from '@services/auth.service';
+import { LocalStorageService } from '@services/local.storage.service';
+import { UserService } from '@services/user.service';
+import { validatorNameSign, validatorPasswordSign } from '@utils/ValidatorsForms';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [SignLayoutComponent, FormSignInputComponent, ReactiveFormsModule, DividerOrComponent],
+  imports: [SignLayoutComponent, FormSignInputComponent, ReactiveFormsModule, DividerOrComponent, BoxReturnFormComponent],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -27,11 +29,12 @@ export class SignUpComponent {
     private _userService: UserService
   ){}
 
+  public isFormSubmitted: boolean = false;
   public userIcon: string = ionPersonOutline; 
   public mailIcon: string = ionMailOutline;
   public lockIcon: string = ionLockClosedOutline;
 
-  public isFormSubmitted: boolean = false;
+  public errorsMessages: WritableSignal<string[]> = signal([]);
 
   public signUpForm = this._fb.group({
     name: ["", validatorNameSign()],
@@ -57,14 +60,40 @@ export class SignUpComponent {
 
   public submitFormSignUp() {
     this.isFormSubmitted = true;
+    this.errorsMessages.set([]);
+
+    if (this.name?.errors) {
+      this.errorsMessages.update((errors) => errors.concat(this.name?.errors?.['errorMessage']));
+    };
+
+    if (this.email?.errors) {
+      this.errorsMessages.update((errors) => errors.concat("E-mail inválido"));
+    };
+
+    if (this.password?.errors) {
+      this.errorsMessages.update((errors) => errors.concat(this.password?.errors?.['errorMessage']));
+    };
+    
+    if (this.signUpForm.valid == false)
+      return;
+
     this._authService.register$(this.name!.value!, this.email!.value!, this.password!.value!).subscribe({
       next: (next) => {
         this._localStorageService.set("token", next.token);
         this._localStorageService.set("refreshToken", next.refreshToken);
         this._userService.setUserName(this.name!.value!);
       },
-      error: (error) => {
-        console.log("Deu erro: ");
+      error: (error: HttpErrorResponse) => {
+        
+        switch(error.status) {
+          case 409:
+            this.errorsMessages.update((errors) => errors.concat("E-mail já cadastrado"));
+            break;
+          default:
+            this.errorsMessages.update((errors) => errors.concat("Não foi possível processar a operação. Tente novamente mais tarde"));
+            break;
+        }
+        
       },
       complete: () => {
         this._router.navigateByUrl("/notes");

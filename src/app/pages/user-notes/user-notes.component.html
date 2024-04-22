@@ -3,10 +3,10 @@
         <div class="user_notes_content">
            <div style="display: flex; justify-content: space-between;">
                 <h3 style="margin-bottom: 10px;">Suas notas ({{userNotes().length}})</h3>
-                <app-note-tools-bar style="margin-top: -8px;" />
+                <app-note-tools-bar [noteSelected]="getNoteSelected()" style="margin-top: -8px;" />
            </div>
             <div class="user_notes_header">
-                <app-search-bar style="width: 100%;" />
+                <app-search-bar placeholder='Pesquisar por título' style="width: 100%;" />
             </div>
             <div class="user_notes_list_container">
                 @for (item of userNotes(); track $index) {

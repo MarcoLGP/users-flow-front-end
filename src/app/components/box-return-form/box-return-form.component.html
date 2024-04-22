@@ -1,0 +1,13 @@
+@if (errorsMessage.length > 0) {
+    <div class="box_return_form">
+        <span class="box_return_form_title">Ops, houve um problema:</span>
+        <div class="box_return_form_item">
+            @for (item of errorsMessage; track $index) {
+                <div class="box_return_form_item_row">
+                    <ng-icon [svg]="errorIcon" size="15px" />
+                    <span>{{item}}</span>
+                </div>
+            }
+        </div>
+    </div>
+}
