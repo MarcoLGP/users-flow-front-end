@@ -4,7 +4,7 @@
         <app-form-sign-input [inputError]="isFormSubmitted && email?.errors ? true : false" style="margin-top: 8px;" [inputFormGroup]="signUpForm" inputLabel="Email" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
         <app-form-sign-input [inputError]="isFormSubmitted && password?.errors ? true : false" style="margin-top: 8px;" [inputFormGroup]="signUpForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
         <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-        <button type="submit" style="margin-top: 20px;" class="red_app_button">Registrar</button>
+        <button type="submit" style="margin-top: 20px;" class="red_app_button">Registrar-se</button>
     </form>
     <app-divider-or />
     <button (click)="navigateToSignIn()" [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button" >Fazer login</button>

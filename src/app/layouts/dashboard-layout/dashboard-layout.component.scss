@@ -7,6 +7,7 @@
     align-items: center;
     width: 280px;
     padding: 12px 0px;
+    transition: left 0.3s ease; 
   }
 
   section {
@@ -54,9 +55,10 @@
   }
 
   .dashboard_content_header_container {
-    height: 70px;
+    height: 60px;
+    min-height: 60px;
     background-color: #fff;
-    width: 99.9%;
+    width: 100%;
     border: 1px solid #e9e7e7;
     align-items: center;
     justify-content: center;
@@ -71,11 +73,22 @@
 
   .dashboard_content_header_router {
     color: #c3002e;
-    font-size: 16px;
-    margin-left: 20px;
+    margin-left: 12px;
   }
 
   .dashboard_content_header_router_description {
     color: #8a8989;
+  }
+
+  @media (max-width: 765px) {
+    aside {
+      display: none;
+    }
+  }
+
+  @media (max-width: 365px) {
+    .dashboard_content_header {
+      font-size: 14px;
+    }
   }
 }

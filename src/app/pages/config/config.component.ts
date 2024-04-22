@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
-import { ConfigBoxFormComponent } from '@components/config-box-form/config-box-form.component';
 import { ConfigEditItemComponent } from '@components/config-edit-item/config-edit-item.component';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
 import { UserAvatarComponent } from '@components/user-avatar/user-avatar.component';
@@ -16,18 +15,18 @@ import { validatorNameSign, validatorPasswordSign } from '@utils/ValidatorsForms
 @Component({
   selector: 'app-config',
   standalone: true,
-  imports: [DashboardLayoutComponent, FormSignInputComponent, ReactiveFormsModule, UserAvatarComponent, NgIcon, ConfigEditItemComponent, ConfigBoxFormComponent, BoxReturnFormComponent],
+  imports: [DashboardLayoutComponent, FormSignInputComponent, ReactiveFormsModule, UserAvatarComponent, NgIcon, ConfigEditItemComponent, BoxReturnFormComponent],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigComponent {
   constructor(
-    private _fb: FormBuilder, 
+    private _fb: FormBuilder,
     private _userService: UserService,
     private _router: Router,
     private _localStorageService: LocalStorageService
-  ) {};
+  ) { };
 
   public lockIcon: string = ionLockClosedOutline;
   public mailIcon: string = ionMailOutline;
@@ -79,14 +78,14 @@ export class ConfigComponent {
   public checkHaveValue(value: string | undefined | null) {
     if (typeof value != "string")
       return false;
-    else if (value.length > 0) 
+    else if (value.length > 0)
       return true;
     else return false;
   };
 
   public changeEmailUserFormSubmit() {
     this.isEmailFormSubmit = true;
-    
+
     if (!this.changeEmailForm?.valid)
       return;
 

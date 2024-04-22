@@ -9,16 +9,16 @@
                 <span class="config_user_info_name">Marco Luca</span>
                 <div class="config_user_info_status">
                     <div class="config_user_info_status_item">
-                        <ng-icon [svg]="noteIcon" color="#496784" size="20"/>
+                        <ng-icon [svg]="noteIcon" color="#496784" size="19"/>
                         <span>Notas privadas: 0</span>
                     </div>
                     <div class="config_user_info_status_item">
-                        <ng-icon [svg]="globeIcon" color="#496784" size="20"/>
+                        <ng-icon [svg]="globeIcon" color="#496784" size="19"/>
                         <span>Notas públicas: 0</span>
                     </div>
                     <div class="config_user_info_status_item">
-                        <ng-icon [svg]="calendarIcon" color="#496784" size="20"/>
-                        <span>Registrado em: 21/04/2024</span>
+                        <ng-icon [svg]="calendarIcon" color="#496784" size="19"/>
+                        <span>Registro: 21/04/2024</span>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                         <form (ngSubmit)="changeEmailUserFormSubmit()" class="config_box_form" [formGroup]="changeEmailForm">
                             <app-form-sign-input [icon]="mailIcon" [inputFormGroup]="changeEmailForm" placeholder="Seu novo email" inputLabel="Email" inputControlName="newEmail" />
                             @if(newEmail?.errors && isEmailFormSubmit) {
-                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[newEmail?.errors?.['errorMessage']]" />
+                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="['E-mail inválido']" />
                             }
                             <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
                         </form>
@@ -71,8 +71,6 @@
                     </div>
                 }
             }
-    
-            
         </div>
     </div>
 </app-dashboard-layout>

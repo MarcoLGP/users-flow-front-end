@@ -15,7 +15,7 @@ export class NoteItemListComponent {
   @Input({ required: true }) title!: string;
   @Input({ required: true }) content!: string;
   @Input({ required: true }) date!: string;
-  @Input({ required: true }) selected: boolean = false;
+  @Input() selected: boolean = false;
 
   public userIcon: string = ionPerson;
   public lockedIcon: string = ionLockClosed;

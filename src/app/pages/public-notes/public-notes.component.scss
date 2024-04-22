@@ -1,3 +1,36 @@
 :host {
   display: block;
+
+  .user_notes_container {
+    height: fit-content;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 97%;
+    align-self: center;
+    background-color: #fff;
+    margin-top: 35px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 3px;
+    align-items: center;
+  }
+
+  .user_notes_content {
+    width: 95%;
+    margin-top: 10px;
+  }
+
+  .user_notes_header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user_notes_list_container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }

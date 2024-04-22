@@ -52,13 +52,13 @@ export class SignInComponent {
     private _authService: AuthService,
     private _localStorageService: LocalStorageService,
     private _userService: UserService
-  ) {}
+  ) { }
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
 
   public signInForm = this._fb.group({
     email: ['', [Validators.email, Validators.required]],
-    password: ['', validatorPasswordSign()],
+    password: ['', Validators.required],
   });
 
   public get email() {
@@ -81,9 +81,9 @@ export class SignInComponent {
       this.errorsMessages.update((errors) => errors.concat('E-mail inválido'));
     }
 
-    if (this.password?.errors?.['errorMessage']) {
+    if (this.password?.errors) {
       this.errorsMessages.update((errors) =>
-        errors.concat(this.password?.errors?.['errorMessage'])
+        errors.concat("Senha válida")
       );
     }
 

@@ -1,5 +1,5 @@
 <section>
-    <aside>
+    <aside [style.display]="showAside() ? 'block' : 'none'">
         <app-user-painel />
         <div class="dashboard_aside_operations">
             <app-dashboard-aside-nav-option-item [icon]="noteIcon" text="Suas notas" routeToNavigate="/notes" />
@@ -8,10 +8,11 @@
             <app-dashboard-aside-nav-option-item [icon]="logoutIcon" text="Sair" routeToNavigate="/logout" />
         </div>
     </aside>
+    <app-aside-drawer [isDrawerOpen]="showDrawNav()" [setDrawerOpen]="showDrawNav"/>
     <content class="dashboard_content_container">
         <div class="dashboard_content_header_container">
             <div class="dashboard_content_header">
-                <ng-icon [svg]="menuIcon" size="20px" />
+                <ng-icon (click)="toggleAside()" [style.cursor]="'pointer'" [svg]="menuIcon" size="20px" />
                 <span class="dashboard_content_header_router">{{titleRoute}}</span>
                 <span class="dashboard_content_header_router_description">/{{descriptionRoute}}</span>
             </div>

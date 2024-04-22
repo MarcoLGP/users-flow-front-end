@@ -99,4 +99,23 @@
   .config_box_form > div {
     margin-top: 10px;
   }
+
+  @media (max-width: 860px) {
+    .config_user_info_status_item span {
+      font-size: 10px;
+    }
+  }
+
+  @media (max-width: 455px) {
+    .config_user_info_status_item span {
+      font-size: 9px;
+    }
+
+    @media (max-width: 368px) {
+      .config_user_info_status_item span {
+        font-size: 8px;
+      }
+    }
+  }
+
 }

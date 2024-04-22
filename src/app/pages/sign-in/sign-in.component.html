@@ -4,8 +4,8 @@
         <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
         <span class="forgot_password_label">Esqueci minha senha</span>
         <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-        <button [style.marginTop]="'18px'" class="red_app_button">Entrar</button>
+        <button [style.marginTop]="'18px'" class="red_app_button">Entre</button>
     </form>
     <app-divider-or />
-    <button (click)="navigateToSignUp()" [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button">Registrar</button>
+    <button (click)="navigateToSignUp()" [style.width]="'300px'" [style.marginTop]="'10px'" class="app_button">Registre-se</button>
 </app-sign-layout>
