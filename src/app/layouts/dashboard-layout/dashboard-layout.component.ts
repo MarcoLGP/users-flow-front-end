@@ -1,11 +1,25 @@
 import { NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, HostListener, Input, OnInit, WritableSignal, signal, PLATFORM_ID, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  Input,
+  OnInit,
+  WritableSignal,
+  signal,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsideDrawerComponent } from '@components/aside-drawer/aside-drawer.component';
-import { DashboardAsideNavOptionItemComponent } from '@components/dashboard-aside-nav-option-item/dashboard-aside-nav-option-item.component';
-import { UserPainelComponent } from '@components/user-painel/user-painel.component';
 import { NgIcon } from '@ng-icons/core';
-import { ionDocumentTextSharp, ionGlobeOutline, ionLogOut, ionMenu, ionSettings } from '@ng-icons/ionicons';
+import {
+  ionDocumentTextSharp,
+  ionGlobeOutline,
+  ionLogOut,
+  ionMenu,
+  ionSettings,
+} from '@ng-icons/ionicons';
 import { AuthService } from '@services/auth.service';
 import { GlobalService } from '@services/global.service';
 import { LocalStorageService } from '@services/local.storage.service';
@@ -14,10 +28,16 @@ import { UserService } from '@services/user.service';
 @Component({
   selector: 'app-dashboard-layout',
   standalone: true,
-  imports: [NgIcon, NgOptimizedImage, UserPainelComponent, DashboardAsideNavOptionItemComponent, AsideDrawerComponent],
+  imports: [
+    NgIcon,
+    NgOptimizedImage,
+    AsideDrawerComponent,
+    RouterLinkActive,
+    RouterLink,
+  ],
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardLayoutComponent implements OnInit {
   constructor(
@@ -27,7 +47,7 @@ export class DashboardLayoutComponent implements OnInit {
     private _authService: AuthService,
     private _globalService: GlobalService,
     @Inject(PLATFORM_ID) private _platformId: Object
-  ) { };
+  ) {}
 
   @Input({ required: true }) public titleRoute!: string;
   @Input({ required: true }) public descriptionRoute!: string;
@@ -38,13 +58,21 @@ export class DashboardLayoutComponent implements OnInit {
   public settingsIcon: string = ionSettings;
   public logoutIcon: string = ionLogOut;
 
-  public userName: WritableSignal<string> = signal("");
+  public userName: WritableSignal<string> = signal('');
+  public userEmail: WritableSignal<string> = signal('');
 
-  public showDrawNav: WritableSignal<boolean> = signal(this._globalService.getShowDrawNav());
-  public showAside: WritableSignal<boolean> = signal(this._globalService.getShowAside());
+  public showDrawNav: WritableSignal<boolean> = signal(
+    this._globalService.getShowDrawNav()
+  );
+  public showAside: WritableSignal<boolean> = signal(
+    this._globalService.getShowAside()
+  );
 
   ngOnInit(): void {
-    if (this._globalService.getFirstRender() && isPlatformBrowser(this._platformId)) {
+    if (
+      this._globalService.getFirstRender() &&
+      isPlatformBrowser(this._platformId)
+    ) {
       if (window.innerWidth > 768) {
         this._globalService.setShowAside(true);
         this.showAside.set(true);
@@ -54,9 +82,9 @@ export class DashboardLayoutComponent implements OnInit {
     this._userService.userName.subscribe({
       next: (next) => {
         this.userName.set(next);
-      }
+      },
     });
-  };
+  }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -70,8 +98,8 @@ export class DashboardLayoutComponent implements OnInit {
       this.showDrawNav.set(false);
       this._globalService.setShowAside(true);
       this.showAside.set(true);
-    };
-  };
+    }
+  }
 
   public toggleAside() {
     const width: number = window.innerWidth;
@@ -85,29 +113,32 @@ export class DashboardLayoutComponent implements OnInit {
       this._globalService.setShowAside(!actual_value);
       this.showAside.set(!actual_value);
     }
-  };
+  }
 
   public navigateToHome() {
-    this._router.navigateByUrl("/home");
-  };
+    this._router.navigateByUrl('/home');
+  }
 
   public navigateToConfiguration() {
-    this._router.navigateByUrl("/configuration");
-  };
+    this._router.navigateByUrl('/configuration');
+  }
 
   public logout() {
-    this._authService.logout$(this._localStorageService.get("token"), this._localStorageService.get("refreshToken")).subscribe({
-      next: () => {
-        this._localStorageService.remove("token");
-        this._localStorageService.remove("refreshToken");
-      },
-      error: (error) => {
-
-      },
-      complete: () => {
-        this._userService.setUserName("");
-        this._router.navigateByUrl("");
-      }
-    });
-  };
+    this._authService
+      .logout$(
+        this._localStorageService.get('token'),
+        this._localStorageService.get('refreshToken')
+      )
+      .subscribe({
+        next: () => {
+          this._localStorageService.remove('token');
+          this._localStorageService.remove('refreshToken');
+        },
+        error: (error) => {},
+        complete: () => {
+          this._userService.setUserName('');
+          this._router.navigateByUrl('');
+        },
+      });
+  }
 }

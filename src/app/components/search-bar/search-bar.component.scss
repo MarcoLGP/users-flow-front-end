@@ -4,9 +4,14 @@
   form {
     display: flex;
     align-items: center;
-    border-radius: 4px;
+    border-radius: 50px;
     justify-content: space-between;
-    background-color: #f9f8fd;
+    background-color: #f0f2f5;
+  }
+
+  .search_bar {
+    padding: 7px 0px; 
+    width: 100%;
   }
 
   input {
@@ -25,8 +30,12 @@
     width: 55px;
     background-color: #c3002e;
     color: #fff;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
     cursor: pointer;
+  }
+
+  .search_icon_container > ng-icon {
+    margin-right: 5px;
   }
 }

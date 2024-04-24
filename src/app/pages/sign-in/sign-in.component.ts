@@ -52,7 +52,7 @@ export class SignInComponent {
     private _authService: AuthService,
     private _localStorageService: LocalStorageService,
     private _userService: UserService
-  ) { }
+  ) {}
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
 
@@ -82,9 +82,7 @@ export class SignInComponent {
     }
 
     if (this.password?.errors) {
-      this.errorsMessages.update((errors) =>
-        errors.concat("Senha válida")
-      );
+      this.errorsMessages.update((errors) => errors.concat('Senha válida'));
     }
 
     if (this.signInForm.valid == false) return;
@@ -96,6 +94,7 @@ export class SignInComponent {
           this._token = next.token;
           this._refreshToken = next.refreshToken;
           this._userService.setUserName(next.name);
+          this._userService.setUserEmail(next.email);
         },
         error: (error_response: HttpErrorResponse) => {
           switch (error_response.status) {

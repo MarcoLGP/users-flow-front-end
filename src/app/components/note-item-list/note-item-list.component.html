@@ -1,14 +1,11 @@
-<div class="note_item" [style.border-color]="selected ? 'red' : ''">
+<div class="note_item">
     <div class="note_item_user">
         <app-user-avatar />
         <div class="note_item_user_info">
-            <div class="note_item_user_info_name">
-                <span class="note_item_user_info_name_text">Marco Luca</span>
-            </div>
-            <span class="note_item_user_info_role_text">Pessoal</span>
+            <span class="note_item_user_info_name">{{author}}</span>
+            <span class="note_item_user_info_time">Hoje</span>
         </div>
     </div>
     <span class="note_item_title">{{title}}</span>
     <span class="note_item_content">{{content}}</span>
-    <span class="note_item_date">{{date}}</span>
 </div>

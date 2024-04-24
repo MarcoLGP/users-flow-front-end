@@ -25,9 +25,9 @@ import { NoteService } from '@services/note.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteToolsBarComponent {
-  constructor(private _noteService: NoteService) {};
+  constructor(private _noteService: NoteService) {}
 
-  @Input({ required: true }) public noteSelected!: INoteSelected;
+  @Input({ required: false }) public noteSelected!: INoteSelected;
 
   public isEdit: WritableSignal<boolean> = signal(false);
 
@@ -52,14 +52,14 @@ export class NoteToolsBarComponent {
     console.log(this.noteSelected);
     this._noteService.deleteNote(this.noteSelected.noteId).subscribe({
       next: () => {
-        console.log("Next");
+        console.log('Next');
       },
       error: (error) => {
         console.log(error);
       },
       complete: () => {
-        console.log("Complete");
-      }
+        console.log('Complete');
+      },
     });
-  };
+  }
 }

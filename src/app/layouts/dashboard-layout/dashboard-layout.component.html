@@ -1,22 +1,20 @@
 <section>
-    <aside [style.display]="showAside() ? 'block' : 'none'">
-        <app-user-painel />
-        <div class="dashboard_aside_operations">
-            <app-dashboard-aside-nav-option-item [icon]="noteIcon" text="Suas notas" routeToNavigate="/notes" />
-            <app-dashboard-aside-nav-option-item [icon]="globeIcon" text="Notas públicas" routeToNavigate="/public-notes" />
-            <app-dashboard-aside-nav-option-item [icon]="settingsIcon" text="Configurações" routeToNavigate="/configuration" />
-            <app-dashboard-aside-nav-option-item [icon]="logoutIcon" text="Sair" routeToNavigate="/logout" />
+    <header>
+        <div class="header_container">
+            <img class="site_logo_img" src="../../../assets/images/logo.png" />
+            <nav class="header_nav">
+                <ul>
+                    <li routerLink="/notes" routerLinkActive="active">Suas notas</li>
+                    <li routerLink="/public-notes" routerLinkActive="active">Notas públicas</li>
+                    <li routerLink="/configuration" routerLinkActive="active">Configurações</li>
+                </ul>
+            </nav>
+            <span [style.cursor]="'pointer'">Sair</span>
         </div>
-    </aside>
+    </header>
     <app-aside-drawer [isDrawerOpen]="showDrawNav()" [setDrawerOpen]="showDrawNav"/>
     <content class="dashboard_content_container">
-        <div class="dashboard_content_header_container">
-            <div class="dashboard_content_header">
-                <ng-icon (click)="toggleAside()" [style.cursor]="'pointer'" [svg]="menuIcon" size="20px" />
-                <span class="dashboard_content_header_router">{{titleRoute}}</span>
-                <span class="dashboard_content_header_router_description">/{{descriptionRoute}}</span>
-            </div>
-        </div>
         <ng-content />
     </content>
+    <ng-icon (click)="toggleAside()" [style.cursor]="'pointer'" [svg]="menuIcon" size="20px" />
 </section>

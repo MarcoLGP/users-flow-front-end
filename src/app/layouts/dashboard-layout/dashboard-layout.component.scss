@@ -1,83 +1,59 @@
 :host {
   display: block;
 
-  aside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 280px;
-    padding: 12px 0px;
-    transition: left 0.3s ease; 
-  }
-
   section {
     display: flex;
+    flex-direction: column;
     height: 100vh;
     min-height: 100vh;
     font-family: Poppins, sans-serif;
   }
-
-  .dashboard_aside_user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .dashboard_aside_user_img {
-    padding: 8px;
-    border-radius: 100px;
-  }
-
-  .dashboard_aside_operations {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  .dashboard_aside_operations > :first-child {
-    border-top: 1px solid #ccc;
-  }
   
-  .dashboard_aside_operations > ng-icon {
-    padding: 8px;
-    border-radius: 12px;
-    background-color: #E9F1FB;
+  header {
+    min-height: 68px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 97%;
+    align-self: center;
+  }
+
+  .site_logo_img {
+    width: 165px;
+    object-fit: contain;
+  }
+
+  .header_nav ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    list-style-type: none;
+    margin-right: 110px;
+  }
+
+  .header_nav ul li.active {
+    color: #ED2748;
+    font-weight: 600;
+  }
+
+  .header_nav ul li {
+    font-size: 15px;
+    cursor: pointer;
   }
 
   .dashboard_content_container {
     width: 100%;
     height: 100%;
-    background-color: #f9f8fd;
+    background-color: #f0f2f5;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .dashboard_content_header_container {
-    height: 60px;
-    min-height: 60px;
-    background-color: #fff;
-    width: 100%;
-    border: 1px solid #e9e7e7;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-  }
-
-  .dashboard_content_header {
-    width: 97%;
-    display: flex;
-    align-items: center;
-  }
-
-  .dashboard_content_header_router {
-    color: #c3002e;
-    margin-left: 12px;
-  }
-
-  .dashboard_content_header_router_description {
-    color: #8a8989;
   }
 
   @media (max-width: 765px) {
@@ -87,7 +63,7 @@
   }
 
   @media (max-width: 365px) {
-    .dashboard_content_header {
+    .dashboard_header {
       font-size: 14px;
     }
   }

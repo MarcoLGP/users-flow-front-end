@@ -4,23 +4,10 @@
             <img src="../../../assets/images/pexels-julius-silver-240301-753312.png" alt="wallpaper" />
             <div class="config_user_info">
                 <div class="config_user_avatar">
-                    <span>M</span>
+                    <span>{{userName().charAt(0).toUpperCase()}}</span>
                 </div>
-                <span class="config_user_info_name">Marco Luca</span>
-                <div class="config_user_info_status">
-                    <div class="config_user_info_status_item">
-                        <ng-icon [svg]="noteIcon" color="#496784" size="19"/>
-                        <span>Notas privadas: 0</span>
-                    </div>
-                    <div class="config_user_info_status_item">
-                        <ng-icon [svg]="globeIcon" color="#496784" size="19"/>
-                        <span>Notas públicas: 0</span>
-                    </div>
-                    <div class="config_user_info_status_item">
-                        <ng-icon [svg]="calendarIcon" color="#496784" size="19"/>
-                        <span>Registro: 21/04/2024</span>
-                    </div>
-                </div>
+                <span class="config_user_info_name">{{userName() || "Marco Luca"}}</span>
+                <span class="config_user_info_email">{{userEmail() || 'marco@gmail.com'}}</span>
             </div>
         </div>
         <div class="config_user_form">
@@ -38,9 +25,7 @@
                         <h3 class="config_box_title">Alterar nome:</h3>
                         <form (ngSubmit)="changeNameUserFormSubmit()" class="config_box_form" [formGroup]="changeNameForm">
                             <app-form-sign-input [icon]="userIcon" [inputFormGroup]="changeNameForm" placeholder="Seu novo nome" inputLabel="Novo nome" inputControlName="name" />
-                            @if(name?.errors && isNameFormSubmit) {
-                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[name?.errors?.['errorMessage']]" />
-                            }
+                            <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesFormName()" />
                             <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
                         </form>
                     </div>
@@ -50,9 +35,7 @@
                         <h3 class="config_box_title">Alterar email:</h3>
                         <form (ngSubmit)="changeEmailUserFormSubmit()" class="config_box_form" [formGroup]="changeEmailForm">
                             <app-form-sign-input [icon]="mailIcon" [inputFormGroup]="changeEmailForm" placeholder="Seu novo email" inputLabel="Email" inputControlName="newEmail" />
-                            @if(newEmail?.errors && isEmailFormSubmit) {
-                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="['E-mail inválido']" />
-                            }
+                            <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesFormEmail()" />
                             <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
                         </form>
                     </div>
@@ -63,9 +46,7 @@
                         <form (ngSubmit)="changePasswordUserFormSubmit()" class="config_box_form" [formGroup]="changePasswordForm">
                             <app-form-sign-input [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Senha atual" inputLabel="Senha atual" inputControlName="oldPassword" typeInput="password" />
                             <app-form-sign-input style="margin-top: 5px;" [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Nova senha" inputLabel="Nova senha" inputControlName="newPassword" typeInput="password" />
-                            @if ((newPassword?.errors || oldPassword?.errors) && isPasswordFormSubmit) {
-                                <app-box-return-form style="margin-top: 8px;" [errorsMessage]="[newPassword?.errors?.['errorMessage']]" />
-                            }
+                            <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesformPassword()" />
                             <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
                         </form>
                     </div>

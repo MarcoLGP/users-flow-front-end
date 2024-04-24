@@ -2,17 +2,15 @@
     <div class="user_notes_container">
         <div class="user_notes_content">
            <div style="display: flex; justify-content: space-between;">
-                <h3 style="margin-bottom: 10px;">Suas notas ({{userNotes().length}})</h3>
-                <app-note-tools-bar [noteSelected]="getNoteSelected()" style="margin-top: -8px;" />
+                <h3>Suas notas</h3>
            </div>
-            <div class="user_notes_header">
-                <app-search-bar placeholder='Pesquisar por título' style="width: 100%;" />
-            </div>
-            <div class="user_notes_list_container">
-                @for (item of userNotes(); track $index) {
-                    <app-note-item-list (click)="setNoteSelected($index)" [title]="item.title" [content]="item.content" [date]="(item.created | date:'dd/MM/yyyy')!" [selected]="indexSelected() == $index" />
-                }
-            </div>
+           <app-search-bar style="margin-top: 8px;" placeholder='Pesquisar por título'/>
         </div>
     </div>
+    <div class="user_notes_list_container">
+        @for (item of userNotes(); track $index) {
+            <app-note-item-list (click)="setNoteSelected($index)" author="Marco luca" [title]="item.title" [content]="item.content" [date]="(item.created | date:'dd/MM/yyyy')!"/>
+        }
+    </div>
+    <app-fab-button />
 </app-dashboard-layout>
