@@ -1,12 +1,4 @@
 <app-dashboard-layout titleRoute="Notas públicas" descriptionRoute="Notas da comunidade">
-    <div class="user_notes_container">
-        <div class="user_notes_content">
-           <div style="display: flex; justify-content: space-between;">
-                <h3 style="margin-bottom: 10px;">Notas da comunidade</h3>
-           </div>
-            <app-search-bar placeholder='Pesquisar por título' />
-        </div>
-    </div>
     <div class="user_notes_list_container">
         @for (item of publicNotes; track $index) {
             <app-note-item-list author="M" [title]="item.title" [content]="item.content" [date]="(item.created | date:'dd/MM/yyyy')!"  />

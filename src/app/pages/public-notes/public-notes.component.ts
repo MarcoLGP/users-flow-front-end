@@ -15,6 +15,6 @@ import { INote } from '@models/Note';
 })
 export class PublicNotesComponent {
   public publicNotes: INote[] = [
-    { noteId: 1, content: "Conteúdo bacana de uma note", created: "2022-01-01", title: "Note bacana", locked: false, public: false },
+    { noteId: 1, content: "Conteúdo bacana de uma note", created: "2022-01-01", title: "Note bacana", public: false },
   ];
 }

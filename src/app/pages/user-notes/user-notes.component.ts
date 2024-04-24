@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { FabButtonComponent } from '@components/fab-button/fab-button.component';
+import { CreateEditNoteModalComponent } from '@components/modals/create-edit-note-modal/create-edit-note-modal.component';
 import { NoteItemListComponent } from '@components/note-item-list/note-item-list.component';
 import { NoteToolsBarComponent } from '@components/note-tools-bar/note-tools-bar.component';
 import { SearchBarComponent } from '@components/search-bar/search-bar.component';
@@ -24,24 +25,28 @@ import { NoteService } from '@services/note.service';
     NoteItemListComponent,
     DatePipe,
     FabButtonComponent,
+    CreateEditNoteModalComponent
   ],
   templateUrl: './user-notes.component.html',
   styleUrl: './user-notes.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserNotesComponent implements AfterViewInit {
-  constructor(private _noteService: NoteService) {}
+  constructor(private _noteService: NoteService) { }
 
   public userNotes: WritableSignal<INote[]> = signal([]);
-  public indexSelected: WritableSignal<number | null> = signal(null);
+  public indexSelectedNote: WritableSignal<number | null> = signal(null);
+
+  public isEditNote: WritableSignal<boolean> = signal(false);
+  public addEditNoteModalOpen: WritableSignal<boolean> = signal(false);
 
   public setNoteSelected(index: number) {
-    if (this.indexSelected() === index) this.indexSelected.set(null);
-    else this.indexSelected.set(index);
+    if (this.indexSelectedNote() === index) this.indexSelectedNote.set(null);
+    else this.indexSelectedNote.set(index);
   }
 
   public getNoteSelected() {
-    return this.userNotes()[this.indexSelected()!];
+    return this.userNotes()[this.indexSelectedNote()!];
   }
 
   ngAfterViewInit(): void {

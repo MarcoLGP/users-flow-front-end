@@ -3,13 +3,6 @@
     <form (ngSubmit)="createNoteFormSubmit()" [formGroup]="createNoteForm">
         <app-form-sign-input [inputFormGroup]="createNoteForm" inputLabel="Título" [icon]="pencilIcon" placeholder="Título" inputControlName="title" inputLabel="Título" inputControlName="title" />
         <div (input)="onContentInput($event)" #noteContent class="note_content" contenteditable="true" data-placeholder="Digite seu texto aqui..."></div>
-        <div style="margin-top: 15px;" class="modal_content_select_container">
-            <select class="modal_content_select" [value]="locked" [formGroup]="createNoteForm" formControlName="locked">
-                <option [value]="true">Bloqueado</option>
-                <option [value]="false">Desbloqueado</option>
-            </select>
-            <span>Conteúdo: </span>
-        </div>
         <div class="modal_content_select_container">
             <select class="modal_content_select" [value]="public" [formGroup]="createNoteForm" formControlName="public">
                 <option [value]="true">Público</option>

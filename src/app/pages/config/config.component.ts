@@ -52,7 +52,7 @@ export class ConfigComponent implements OnInit {
     private _userService: UserService,
     private _router: Router,
     private _localStorageService: LocalStorageService
-  ) {}
+  ) { }
 
   public lockIcon: string = ionLockClosedOutline;
   public mailIcon: string = ionMailOutline;
@@ -115,7 +115,10 @@ export class ConfigComponent implements OnInit {
   }
 
   public handleClickMenu(index: number) {
-    this.selectedIndexMenu = index;
+    if (this.selectedIndexMenu == index)
+      this.selectedIndexMenu = 0;
+    else
+      this.selectedIndexMenu = index;
   }
 
   public checkHaveValue(value: string | undefined | null) {

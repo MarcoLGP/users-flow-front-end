@@ -6,15 +6,29 @@
                 <ul>
                     <li routerLink="/notes" routerLinkActive="active">Suas notas</li>
                     <li routerLink="/public-notes" routerLinkActive="active">Notas públicas</li>
-                    <li routerLink="/configuration" routerLinkActive="active">Configurações</li>
                 </ul>
             </nav>
-            <span [style.cursor]="'pointer'">Sair</span>
+            <div (click)="handleDrawer()" class="dashboard_user_mobile">
+                <div class="dashboard_user_icon">
+                    <span>{{userName().charAt(0).toUpperCase()}}</span>
+                </div>
+                <ng-icon [svg]="menuIcon" size='20px' />
+            </div>
+            <div (click)="openUserOptions = !openUserOptions" class="dashboard_user">
+                <div class="dashboard_user_icon">
+                    <span>{{userName().charAt(0).toUpperCase()}}</span>
+                </div>
+               @if(openUserOptions) {
+                <div class="dashboard_user_options">
+                    <span routerLink="/configuration">Configurações</span>
+                    <span (click)="logout()">Sair</span>
+                </div>
+               }
+            </div>
         </div>
     </header>
-    <app-aside-drawer [isDrawerOpen]="showDrawNav()" [setDrawerOpen]="showDrawNav"/>
+    <app-aside-drawer [drawerOpen]="showDrawNav"/>
     <content class="dashboard_content_container">
         <ng-content />
     </content>
-    <ng-icon (click)="toggleAside()" [style.cursor]="'pointer'" [svg]="menuIcon" size="20px" />
 </section>

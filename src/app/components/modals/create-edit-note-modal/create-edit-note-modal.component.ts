@@ -1,9 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   Input,
+  OnInit,
   ViewChild,
   WritableSignal,
 } from '@angular/core';
@@ -22,30 +22,30 @@ import { NoteService } from '@services/note.service';
   styleUrl: './create-edit-note-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateEditNoteModalComponent implements AfterViewInit {
+export class CreateEditNoteModalComponent implements OnInit {
   @ViewChild('noteContent') noteContentRef!: ElementRef<HTMLDivElement>;
 
-  constructor(private _fb: FormBuilder, private _noteService: NoteService) {}
+  constructor(private _fb: FormBuilder, private _noteService: NoteService) { }
 
   @Input({ required: true }) public setOpenCreateEditNoteModal!: WritableSignal<boolean>;
   @Input() public noteSelected!: INoteSelected;
   @Input({ required: true }) public isEdit: boolean = false;
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+    console.log("Init")
     if (this.isEdit) {
+      console.log("Is Edit");
       this.title?.setValue(this.noteSelected.title);
       this.noteContentRef.nativeElement.innerText = this.noteSelected.content;
-      this.locked?.setValue(this.noteSelected.locked);
       this.public?.setValue(this.noteSelected.public);
     };
-  };
+  }
 
   public pencilIcon = ionPencil;
 
   public createNoteForm = this._fb.group({
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
-    locked: [false],
     public: [true],
   })
 
@@ -57,13 +57,12 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
     const newNote = {
       title: this.title!.value!,
       content: this.createNoteForm.get('content')?.value!,
-      locked: this.locked!.value!,
       public: this.public!.value!
     };
 
     if (this.isEdit) {
-      this._noteService.editNote({noteId: this.noteSelected.noteId, ...newNote}).subscribe({
-        next: () => {},
+      this._noteService.editNote({ noteId: this.noteSelected.noteId, ...newNote }).subscribe({
+        next: () => { },
         error: (error) => {
           console.log(error);
         },
@@ -86,10 +85,6 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
           },
         });
     }
-  }
-
-  get locked() {
-    return this.createNoteForm.get('locked');
   }
 
   get public() {

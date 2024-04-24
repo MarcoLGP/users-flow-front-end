@@ -21,5 +21,18 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     font-family: Roboto;
     min-height: 400px;
+    width: 46vw;
+  }
+
+  @media (max-width: 955px) {
+    .modal_content {
+      width: 70vw;
+    }
+  }
+
+  @media (max-width: 559px) {
+    .modal_content {
+      width: 80vw;
+    }
   }
 }

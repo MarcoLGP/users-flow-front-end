@@ -1,29 +1,34 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, WritableSignal } from '@angular/core';
-import { Router } from '@angular/router';
-import { GlobalService } from '@services/global.service';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '@services/auth.service';
+import { LocalStorageService } from '@services/local.storage.service';
 
 @Component({
   selector: 'app-aside-drawer',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './aside-drawer.component.html',
   styleUrl: './aside-drawer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AsideDrawerComponent {
-  constructor(private _router: Router, private _globalService: GlobalService) { };
+  constructor(private _authService: AuthService, private _localStorageService: LocalStorageService) { };
 
-  @Input({ required: true }) isDrawerOpen!: boolean;
-  @Input({ required: true }) setDrawerOpen!: WritableSignal<boolean>;
-  public navigateTo(route: string) {
-    this.setDrawerOpen.set(false);
-    this._globalService.setShowDrawNav(false);
-    this._router.navigateByUrl(route);
-  };
+  @Input({ required: true }) drawerOpen!: WritableSignal<boolean>;
 
   public closeDrawer() {
-    this.setDrawerOpen.set(false);
-    this._globalService.setShowDrawNav(false);
+    this.drawerOpen.set(false);
+  }
+
+  public logout() {
+    this._authService.logout$(this._localStorageService.get('token'), this._localStorageService.get('refreshToken')).subscribe({
+      complete: () => {
+        this._authService.logoutOperation();
+      },
+      error: () => {
+        this._authService.logoutOperation();
+      }
+    });
   }
 }

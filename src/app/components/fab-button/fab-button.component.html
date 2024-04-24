@@ -1,3 +1,13 @@
-<button class="fab_button">
-      +
-</button>
+<div class="fab_button_container">
+      @if(showSubButtons) {
+            <button (click)="clickDeleteNoteHandler()" class="fab_button2">
+                  <ng-icon [svg]="trashIcon" />
+            </button>
+            <button (click)="clickEditNoteHandler()" class="fab_button2">
+                  <ng-icon [svg]="pencilIcon" />
+            </button>
+      }
+      <button (click)="clickCreateNoteHandler()" class="fab_button">
+            +
+      </button>
+</div>

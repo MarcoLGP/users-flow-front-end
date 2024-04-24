@@ -2,11 +2,10 @@
 export interface INoteBase {
     title: string;
     content: string;
-    locked: boolean;
     public: boolean;
 }
 
-export interface INoteCreate extends INoteBase {}
+export interface INoteCreate extends INoteBase { }
 
 export interface INoteSelected extends INoteBase {
     noteId: number;

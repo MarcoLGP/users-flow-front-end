@@ -1,10 +1,10 @@
-<div class="drawer-overlay" (click)="closeDrawer()" [ngClass]="{'show-overlay': isDrawerOpen}"></div>
-<nav [ngClass]="{'show-drawer': isDrawerOpen}">
+<div class="drawer-overlay" (click)="closeDrawer()" [ngClass]="{'show-overlay': drawerOpen()}"></div>
+<nav [ngClass]="{'show-drawer': drawerOpen()}">
   <span class="aside_drawer_title">UsersFlow</span>
   <ul>
-    <li><a (click)="navigateTo('/notes')">Suas notas</a></li>
-    <li><a (click)="navigateTo('/public-notes')">Notas públicas</a></li>
-    <li><a (click)="navigateTo('/configuration')">Configurações</a></li>
-    <li><a (click)="navigateTo('/logout')">Sair</a></li>
+    <li routerLink="/notes">Suas notas</li>
+    <li routerLink="/public-notes">Notas públicas</li>
+    <li routerLink="/configuration">Configurações</li>
+    <li (click)="logout()">Sair</li>
   </ul>
 </nav>

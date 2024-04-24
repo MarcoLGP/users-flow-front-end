@@ -7,12 +7,19 @@ import {
 } from '@models/Auth';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from './local.storage.service';
+import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private _httpCliente: HttpClient) {}
+  constructor(
+    private _httpCliente: HttpClient,
+    private _localStorageService: LocalStorageService,
+    private _userService: UserService,
+    private _router: Router) { };
 
   public login$(email: string, password: string): Observable<ISignInResponse> {
     return this._httpCliente.post<ISignInResponse>(
@@ -47,5 +54,14 @@ export class AuthService {
       `${environment.apiUrl}/Auth/refresh-token`,
       { refreshToken }
     );
+  }
+
+  public logoutOperation() {
+    try {
+      this._localStorageService.remove('token');
+      this._localStorageService.remove('refreshToken');
+    } catch (error) { };
+    this._userService.setUserName('');
+    this._router.navigateByUrl('/');
   }
 }

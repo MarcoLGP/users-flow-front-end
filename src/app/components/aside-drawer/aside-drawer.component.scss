@@ -9,10 +9,10 @@ nav {
   width: 240px;
   position: fixed;
   top: 0;
-  left: -240px;
+  right: -240px;
   background-color: #333; 
   padding-top: 15px;
-  transition: left 0.3s ease; 
+  transition: right 0.3s ease; 
 }
 
 nav ul {
@@ -25,14 +25,14 @@ nav ul li {
   padding: 10px;
 }
 
-nav ul li a {
+nav ul li {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
 
 .show-drawer {
-  left: 0;
+  right: 0;
 } 
 
 .aside_drawer_title {
@@ -45,7 +45,7 @@ nav ul li a {
 .drawer-overlay {
   position: fixed;
   top: 0;
-  left: 240px;
+  right: 240px;
   width: 100%;
   height: 100%;
   z-index: 999; 
