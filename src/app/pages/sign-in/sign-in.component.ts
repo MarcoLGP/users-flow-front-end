@@ -21,7 +21,6 @@ import { ionLockClosedOutline, ionMailOutline } from '@ng-icons/ionicons';
 import { AuthService } from '@services/auth.service';
 import { LocalStorageService } from '@services/local.storage.service';
 import { UserService } from '@services/user.service';
-import { validatorPasswordSign } from '@utils/ValidatorsForms';
 
 @Component({
   selector: 'app-sign-in',
@@ -118,8 +117,11 @@ export class SignInComponent {
           }
         },
         complete: () => {
-          this._localStorageService.set('token', this._token!);
-          this._localStorageService.set('refreshToken', this._refreshToken!);
+          this._localStorageService.setEncrypted('token', this._token!);
+          this._localStorageService.setEncrypted(
+            'refreshToken',
+            this._refreshToken!
+          );
           this._router.navigateByUrl('/notes');
         },
       });

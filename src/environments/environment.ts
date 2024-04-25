@@ -1,5 +1,5 @@
 export const environment = {
-    env: "prod",
-    apiUrl: "https://localhost:7052",
-    cryptoKey: "sdkakskxmmcjvjcvjjkdsdksk!@#$#$@$#$%%$$RFGBFDSCCVTHER@$##$%"
+  env: 'prod',
+  apiUrl: 'http://usersflow.runasp.net',
+  cryptoKey: 'sdkakskxmmcjvjcvjjkdsdksk!@#$#$@$#$%%$$RFGBFDSCCVTHER@$##$%',
 };

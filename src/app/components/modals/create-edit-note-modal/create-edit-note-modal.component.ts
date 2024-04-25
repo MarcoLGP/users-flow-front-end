@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -22,23 +23,22 @@ import { NoteService } from '@services/note.service';
   styleUrl: './create-edit-note-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateEditNoteModalComponent implements OnInit {
+export class CreateEditNoteModalComponent implements AfterViewInit {
   @ViewChild('noteContent') noteContentRef!: ElementRef<HTMLDivElement>;
 
-  constructor(private _fb: FormBuilder, private _noteService: NoteService) { }
+  constructor(private _fb: FormBuilder, private _noteService: NoteService) {}
 
-  @Input({ required: true }) public setOpenCreateEditNoteModal!: WritableSignal<boolean>;
-  @Input() public noteSelected!: INoteSelected;
+  @Input({ required: true })
+  public setOpenCreateEditNoteModal!: WritableSignal<boolean>;
+  @Input() public noteSelected: INoteSelected | null = null;
   @Input({ required: true }) public isEdit: boolean = false;
 
-  ngOnInit(): void {
-    console.log("Init")
-    if (this.isEdit) {
-      console.log("Is Edit");
+  ngAfterViewInit(): void {
+    if (this.isEdit && this.noteSelected) {
       this.title?.setValue(this.noteSelected.title);
       this.noteContentRef.nativeElement.innerText = this.noteSelected.content;
       this.public?.setValue(this.noteSelected.public);
-    };
+    }
   }
 
   public pencilIcon = ionPencil;
@@ -47,7 +47,7 @@ export class CreateEditNoteModalComponent implements OnInit {
     title: ['', [Validators.required]],
     content: ['', [Validators.required]],
     public: [true],
-  })
+  });
 
   get title() {
     return this.createNoteForm.get('title');
@@ -57,26 +57,14 @@ export class CreateEditNoteModalComponent implements OnInit {
     const newNote = {
       title: this.title!.value!,
       content: this.createNoteForm.get('content')?.value!,
-      public: this.public!.value!
+      public: this.public!.value!,
     };
 
-    if (this.isEdit) {
-      this._noteService.editNote({ noteId: this.noteSelected.noteId, ...newNote }).subscribe({
-        next: () => { },
-        error: (error) => {
-          console.log(error);
-        },
-        complete: () => {
-          this.setOpenCreateEditNoteModal.set(false);
-        },
-      });
-    } else {
+    if (this.isEdit && this.noteSelected) {
       this._noteService
-        .addNote(newNote)
+        .editNote({ noteId: this.noteSelected.noteId, ...newNote })
         .subscribe({
-          next: () => {
-            console.log('Next');
-          },
+          next: () => {},
           error: (error) => {
             console.log(error);
           },
@@ -84,6 +72,18 @@ export class CreateEditNoteModalComponent implements OnInit {
             this.setOpenCreateEditNoteModal.set(false);
           },
         });
+    } else {
+      this._noteService.addNote(newNote).subscribe({
+        next: () => {
+          console.log('Next');
+        },
+        error: (error) => {
+          console.log(error);
+        },
+        complete: () => {
+          this.setOpenCreateEditNoteModal.set(false);
+        },
+      });
     }
   }
 

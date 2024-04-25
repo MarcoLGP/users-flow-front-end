@@ -12,9 +12,7 @@ import {
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsideDrawerComponent } from '@components/aside-drawer/aside-drawer.component';
 import { NgIcon } from '@ng-icons/core';
-import {
-  ionMenu
-} from '@ng-icons/ionicons';
+import { ionMenu } from '@ng-icons/ionicons';
 import { AuthService } from '@services/auth.service';
 import { LocalStorageService } from '@services/local.storage.service';
 import { UserService } from '@services/user.service';
@@ -27,7 +25,7 @@ import { UserService } from '@services/user.service';
     NgOptimizedImage,
     RouterLinkActive,
     RouterLink,
-    AsideDrawerComponent
+    AsideDrawerComponent,
   ],
   templateUrl: './dashboard-layout.component.html',
   styleUrl: './dashboard-layout.component.scss',
@@ -39,7 +37,7 @@ export class DashboardLayoutComponent implements OnInit {
     private _userService: UserService,
     private _localStorageService: LocalStorageService,
     private _authService: AuthService
-  ) { }
+  ) {}
 
   @Input({ required: true }) public titleRoute!: string;
   @Input({ required: true }) public descriptionRoute!: string;
@@ -68,8 +66,8 @@ export class DashboardLayoutComponent implements OnInit {
   public logout() {
     this._authService
       .logout$(
-        this._localStorageService.get('token'),
-        this._localStorageService.get('refreshToken')
+        this._localStorageService.getCrypted('token'),
+        this._localStorageService.getCrypted('refreshToken')
       )
       .subscribe({
         error: () => {

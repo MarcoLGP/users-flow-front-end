@@ -1,5 +1,5 @@
 <app-modal-root [setOpenModal]="setOpenCreateEditNoteModal">
-    <h2 class="modal_content_title">Nova nota</h2>
+    <h2 class="modal_content_title">{{isEdit ? "Editar nota" : "Criar nota"}}</h2>
     <form (ngSubmit)="createNoteFormSubmit()" [formGroup]="createNoteForm">
         <app-form-sign-input [inputFormGroup]="createNoteForm" inputLabel="Título" [icon]="pencilIcon" placeholder="Título" inputControlName="title" inputLabel="Título" inputControlName="title" />
         <div (input)="onContentInput($event)" #noteContent class="note_content" contenteditable="true" data-placeholder="Digite seu texto aqui..."></div>

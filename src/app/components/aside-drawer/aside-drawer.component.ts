@@ -1,5 +1,10 @@
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, WritableSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  WritableSignal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@services/auth.service';
 import { LocalStorageService } from '@services/local.storage.service';
@@ -10,10 +15,13 @@ import { LocalStorageService } from '@services/local.storage.service';
   imports: [NgClass, RouterLink],
   templateUrl: './aside-drawer.component.html',
   styleUrl: './aside-drawer.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AsideDrawerComponent {
-  constructor(private _authService: AuthService, private _localStorageService: LocalStorageService) { };
+  constructor(
+    private _authService: AuthService,
+    private _localStorageService: LocalStorageService
+  ) {}
 
   @Input({ required: true }) drawerOpen!: WritableSignal<boolean>;
 
@@ -22,13 +30,18 @@ export class AsideDrawerComponent {
   }
 
   public logout() {
-    this._authService.logout$(this._localStorageService.get('token'), this._localStorageService.get('refreshToken')).subscribe({
-      complete: () => {
-        this._authService.logoutOperation();
-      },
-      error: () => {
-        this._authService.logoutOperation();
-      }
-    });
+    this._authService
+      .logout$(
+        this._localStorageService.getCrypted('token'),
+        this._localStorageService.getCrypted('refreshToken')
+      )
+      .subscribe({
+        complete: () => {
+          this._authService.logoutOperation();
+        },
+        error: () => {
+          this._authService.logoutOperation();
+        },
+      });
   }
 }
