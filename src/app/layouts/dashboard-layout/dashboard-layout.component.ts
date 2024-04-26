@@ -1,13 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import {
+  AfterViewChecked,
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
   WritableSignal,
-  signal,
-  PLATFORM_ID,
-  Inject,
+  signal
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsideDrawerComponent } from '@components/aside-drawer/aside-drawer.component';
@@ -33,11 +32,11 @@ import { UserService } from '@services/user.service';
 })
 export class DashboardLayoutComponent implements OnInit {
   constructor(
-    private _router: Router,
     private _userService: UserService,
     private _localStorageService: LocalStorageService,
-    private _authService: AuthService
-  ) {}
+    private _authService: AuthService,
+    private _router: Router
+  ) { }
 
   @Input({ required: true }) public titleRoute!: string;
   @Input({ required: true }) public descriptionRoute!: string;
@@ -52,6 +51,12 @@ export class DashboardLayoutComponent implements OnInit {
   public showDrawNav: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
+    if (typeof localStorage == "undefined") return;
+    const token = this._localStorageService.getDecrypted('token');
+    if (!token) {
+      this._router.navigateByUrl('/');
+      return;
+    }
     this._userService.userName.subscribe({
       next: (next) => {
         this.userName.set(next);
@@ -66,8 +71,8 @@ export class DashboardLayoutComponent implements OnInit {
   public logout() {
     this._authService
       .logout$(
-        this._localStorageService.getCrypted('token'),
-        this._localStorageService.getCrypted('refreshToken')
+        this._localStorageService.getDecrypted('token'),
+        this._localStorageService.getDecrypted('refreshToken')
       )
       .subscribe({
         error: () => {

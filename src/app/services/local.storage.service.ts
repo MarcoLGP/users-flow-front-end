@@ -5,7 +5,7 @@ import { CryptographyService } from './cryptography.service';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor(private _cryptoService: CryptographyService) {}
+  constructor(private _cryptoService: CryptographyService) { }
 
   public setEncrypted(key: string, value: string): void {
     const valueStored = localStorage.getItem(key);
@@ -15,8 +15,10 @@ export class LocalStorageService {
     localStorage.setItem(key, this._cryptoService.encrypt(value));
   }
 
-  public getCrypted(key: string): string {
-    return this._cryptoService.decrypt(localStorage.getItem(key)!)!;
+  public getDecrypted(key: string): string {
+    const valueStored = localStorage.getItem(key);
+    if (!valueStored) return '';
+    else return this._cryptoService.decrypt(localStorage.getItem(key)!)!;
   }
 
   public remove(key: string): void {

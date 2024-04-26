@@ -62,9 +62,10 @@
   .config_user_form {
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin: 15px 0px;
     gap: 25px;
     flex-wrap: wrap;
+    background-color: #f0f2f5;
   }
 
   .config_user_box {
@@ -78,6 +79,11 @@
     height: fit-content;
   }
 
+  .config_user_box > form {
+    display: flex;
+    flex-direction: column;
+  }
+
   .config_box_title {
     font-size: 17px;
     font-weight: 600;
@@ -85,6 +91,12 @@
 
   .config_box_form {
     margin-top: 8px;
+  }
+  
+
+  .config_box_form_loading_spinner {
+    margin-top: 10px;
+    align-self: center;
   }
 
   .config_box_form > div {

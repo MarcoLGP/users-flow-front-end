@@ -1,11 +1,15 @@
 <app-sign-layout>
-    <form [formGroup]="signInForm" (ngSubmit)="submitForm()">
+    <form class="form_sign_container" [formGroup]="signInForm" (ngSubmit)="submitForm()">
         <app-form-sign-input [inputError]="handleInputError(email)" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
         <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
-        <span class="forgot_password_label">Esqueci minha senha</span>
+        <span routerLink="/recovery-pass-email" class="forgot_password_label">Esqueci minha senha</span>
         <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-        <button [style.marginTop]="'18px'" class="red_app_button">Entre</button>
+        @if(loadingRequest()) {
+            <app-spinner style="align-self: center; margin-top: 10px;" />
+        } @else {
+            <button style="margin-top: 10px;" class="red_app_button">Entrar</button>
+        }
     </form>
     <app-divider-or />
-    <button (click)="navigateToSignUp()" style="width: 300px; margin-top: 10px;" class="app_button">Registre-se</button>
+    <button (click)="navigateToSignUp()" style="margin-top: 10px;" class="app_button">Registre-se</button>
 </app-sign-layout>

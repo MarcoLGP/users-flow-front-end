@@ -1,0 +1,8 @@
+<app-sign-layout [redirectUser]="false">
+    <form [formGroup]="recoveryPassForm" (ngSubmit)="submitForm()" >
+        <app-form-sign-input [inputError]="handleInputError(newPassword)" [inputFormGroup]="recoveryPassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Digite sua nova senha" typeInput="password" inputControlName="newPassword" />
+        <app-form-sign-input [inputError]="handleInputError(confirmNewPassword)" style="margin-top: 5px;" [inputFormGroup]="recoveryPassForm" inputLabel="Confirme sua nova senha" [icon]="lockIcon" placeholder="Confirme sua nova senha" typeInput="password" inputControlName="confirmNewPassword" />
+        <app-box-return-form style="margin-top: 5px;" [errorsMessage]="errorsMessages()" />
+        <button style="margin-top: 15px;" class="red_app_button">Alterar senha</button>
+    </form>
+</app-sign-layout>

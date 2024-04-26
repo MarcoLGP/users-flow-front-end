@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
 import { ConfigEditItemComponent } from '@components/config-edit-item/config-edit-item.component';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
+import { SpinnerComponent } from '@components/spinner/spinner.component';
 import { UserAvatarComponent } from '@components/user-avatar/user-avatar.component';
 import { DashboardLayoutComponent } from '@layouts/dashboard-layout/dashboard-layout.component';
 import { NgIcon } from '@ng-icons/core';
@@ -41,6 +42,7 @@ import {
     NgIcon,
     ConfigEditItemComponent,
     BoxReturnFormComponent,
+    SpinnerComponent
   ],
   templateUrl: './config.component.html',
   styleUrl: './config.component.scss',
@@ -71,6 +73,8 @@ export class ConfigComponent implements OnInit {
   public errorMessagesFormName: WritableSignal<string[]> = signal([]);
   public errorMessagesFormEmail: WritableSignal<string[]> = signal([]);
   public errorMessagesformPassword: WritableSignal<string[]> = signal([]);
+
+  public loadingRequestForm: WritableSignal<boolean> = signal(false);
 
   public userName: WritableSignal<string> = signal('');
   public userEmail: WritableSignal<string> = signal(
@@ -144,10 +148,9 @@ export class ConfigComponent implements OnInit {
       return;
     }
 
+    this.loadingRequestForm.set(true);
+
     this._userService.updateEmailUser(this.newEmail!.value!).subscribe({
-      next: (next) => {
-        console.log(next);
-      },
       error: (errorResponse: HttpErrorResponse) => {
         if (errorResponse.status == 409)
           this.errorMessagesFormEmail.update((errors) =>
@@ -157,12 +160,15 @@ export class ConfigComponent implements OnInit {
           this.errorMessagesFormEmail.update((errors) =>
             errors.concat('Erro inesperado. Tente novamente mais tarde')
           );
+        this.loadingRequestForm.set(false);
       },
       complete: () => {
+        this.userEmail.set(this.newEmail!.value!);
         this.changeEmailForm.reset({
           newEmail: '',
         });
         this.isEmailFormSubmit = false;
+        this.loadingRequestForm.set(false);
       },
     });
   }
@@ -176,12 +182,11 @@ export class ConfigComponent implements OnInit {
       return;
     }
 
+    this.loadingRequestForm.set(true);
+
     this._userService
       .updatePasswordUser(this.oldPassword!.value!, this.newPassword!.value!)
       .subscribe({
-        next: (next) => {
-          console.log(next);
-        },
         error: (errorResponse: HttpErrorResponse) => {
           if (errorResponse.status == 409)
             this.errorMessagesformPassword.update((errors) =>
@@ -191,6 +196,7 @@ export class ConfigComponent implements OnInit {
             this.errorMessagesformPassword.update((errors) =>
               errors.concat('Erro inesperado. Tente novamente mais tarde')
             );
+          this.loadingRequestForm.set(false);
         },
         complete: () => {
           this.changePasswordForm.reset({
@@ -198,6 +204,7 @@ export class ConfigComponent implements OnInit {
             oldPassword: '',
           });
           this.isPasswordFormSubmit = false;
+          this.loadingRequestForm.set(false);
         },
       });
   }
@@ -211,12 +218,12 @@ export class ConfigComponent implements OnInit {
       return;
     }
 
+    this.loadingRequestForm.set(true);
+
     this._userService.updateNameUser(this.name!.value!).subscribe({
-      next: (next) => {
-        console.log(next);
-      },
       error: () => {
         this.errorMessagesFormName.set(['Erro inesperado. Tente novamente']);
+        this.loadingRequestForm.set(false);
       },
       complete: () => {
         this._userService.setUserName(this.name!.value!);
@@ -224,6 +231,7 @@ export class ConfigComponent implements OnInit {
           name: '',
         });
         this.isNameFormSubmit = false;
+        this.loadingRequestForm.set(false);
       },
     });
   }

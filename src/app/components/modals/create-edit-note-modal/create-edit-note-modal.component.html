@@ -1,8 +1,8 @@
 <app-modal-root [setOpenModal]="setOpenCreateEditNoteModal">
     <h2 class="modal_content_title">{{isEdit ? "Editar nota" : "Criar nota"}}</h2>
     <form (ngSubmit)="createNoteFormSubmit()" [formGroup]="createNoteForm">
-        <app-form-sign-input [inputFormGroup]="createNoteForm" inputLabel="Título" [icon]="pencilIcon" placeholder="Título" inputControlName="title" inputLabel="Título" inputControlName="title" />
-        <div (input)="onContentInput($event)" #noteContent class="note_content" contenteditable="true" data-placeholder="Digite seu texto aqui..."></div>
+        <app-form-sign-input [inputError]="handleInputError(title)" [inputFormGroup]="createNoteForm" inputLabel="Título" [icon]="pencilIcon" placeholder="Título" inputControlName="title" inputLabel="Título" inputControlName="title" />
+        <div [style.border-color]="handleInputError(content) ? ' red' : ''" (input)="onContentInput()" #noteContent class="note_content" contenteditable="true" data-placeholder="Digite seu texto aqui..."></div>
         <div class="modal_content_select_container">
             <select class="modal_content_select" [value]="public" [formGroup]="createNoteForm" formControlName="public">
                 <option [value]="true">Público</option>
@@ -10,6 +10,7 @@
             </select>
             <span style="margin-right: 25px;">Visibilidade: </span>
         </div>
+        <app-box-return-form [errorsMessage]="errorsMessages()" />
         <div class="modal_buttons">
             <button (click)="setOpenCreateEditNoteModal.set(false)" class="app_button modal_cancel_button" >cancelar</button>
             <button type="submit" class="red_app_button">{{isEdit ? "Salvar nota" : "Criar nota"}}</button>

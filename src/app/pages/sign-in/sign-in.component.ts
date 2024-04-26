@@ -12,10 +12,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
 import { DividerOrComponent } from '@components/divider-or/divider-or.component';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
+import { SpinnerComponent } from '@components/spinner/spinner.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
 import { ionLockClosedOutline, ionMailOutline } from '@ng-icons/ionicons';
 import { AuthService } from '@services/auth.service';
@@ -32,6 +33,8 @@ import { UserService } from '@services/user.service';
     CommonModule,
     DividerOrComponent,
     BoxReturnFormComponent,
+    RouterLink,
+    SpinnerComponent
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
@@ -45,13 +48,15 @@ export class SignInComponent {
   private _token: string | null = null;
   private _refreshToken: string | null = null;
 
+  public loadingRequest: WritableSignal<boolean> = signal(false);
+
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
     private _authService: AuthService,
     private _localStorageService: LocalStorageService,
     private _userService: UserService
-  ) {}
+  ) { }
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
 
@@ -81,10 +86,12 @@ export class SignInComponent {
     }
 
     if (this.password?.errors) {
-      this.errorsMessages.update((errors) => errors.concat('Senha válida'));
+      this.errorsMessages.update((errors) => errors.concat('Senha inválida'));
     }
 
-    if (this.signInForm.valid == false) return;
+    if (this.errorsMessages().length > 0) return;
+
+    this.loadingRequest.set(true);
 
     this._authService
       .login$(this.email!.value!, this.password!.value!)
@@ -115,6 +122,7 @@ export class SignInComponent {
               );
               break;
           }
+          this.loadingRequest.set(false);
         },
         complete: () => {
           this._localStorageService.setEncrypted('token', this._token!);

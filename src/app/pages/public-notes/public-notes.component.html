@@ -1,7 +1,7 @@
 <app-dashboard-layout titleRoute="Notas públicas" descriptionRoute="Notas da comunidade">
     <div class="user_notes_list_container">
         @for (item of publicNotes; track $index) {
-            <app-note-item-list author="M" [title]="item.title" [content]="item.content" [date]="(item.created | date:'dd/MM/yyyy')!"  />
+            <app-note-item-list author="M" [public]="item.public" [title]="item.title" [content]="item.content" [date]="item.created!"  />
         }
     </div>
 </app-dashboard-layout>

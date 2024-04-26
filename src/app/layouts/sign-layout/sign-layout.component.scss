@@ -22,10 +22,11 @@
     align-items: center;
   }
 
-  .sign_box_content_header_container {
-    display: flex;
-    align-items: center;
-    margin-top: -25px;
+  .sign_box_content_logo_img {
+    width: 230px;
+    object-fit: contain;
+    margin-top: -7px;
+    margin-bottom: 10px;
   }
 
   .sign_box_content_header_title {

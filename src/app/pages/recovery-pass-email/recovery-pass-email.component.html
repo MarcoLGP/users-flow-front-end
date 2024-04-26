@@ -1,0 +1,17 @@
+<app-sign-layout>
+    @if(isSuccessEmail()) {
+        <div class="recovery_pass_email_container">
+            <div class="recovery_pass_email_success">
+                <ng-icon [svg]="successIcon" />
+                <span class="recovery_pass_email_success_label">Um link para alterar a sua senha foi enviado para o e-mail informado.</span>
+            </div>
+            <button style="margin-top: 15px;" (click)="navigateToSignIn()" class="red_app_button">Fazer login</button>
+        </div>
+    } @else {
+        <form class="form_sign_container" [formGroup]="recoveryPassEmailForm" (ngSubmit)="submitForm()">
+            <app-form-sign-input [icon]="emailIcon" [inputError]="handleInputError(email)" [inputFormGroup]="recoveryPassEmailForm" inputLabel="Email" placeholder="Digite seu email" inputControlName="email" />
+            <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
+            <button style="margin-top: 15px;" class="red_app_button">Recuperar senha</button>
+        </form>
+    }
+</app-sign-layout>

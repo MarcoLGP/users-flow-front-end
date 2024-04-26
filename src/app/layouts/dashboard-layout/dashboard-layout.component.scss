@@ -13,6 +13,9 @@
     min-height: 68px;
     display: flex;
     justify-content: center;
+    position: sticky;
+    top: 0px;
+    background-color: #fff;
   }
 
   .header_container {
@@ -26,6 +29,7 @@
   .site_logo_img {
     width: 165px;
     object-fit: contain;
+    cursor: pointer;
   }
 
   .header_nav ul {

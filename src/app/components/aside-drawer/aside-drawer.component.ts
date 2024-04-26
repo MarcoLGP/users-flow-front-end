@@ -21,7 +21,7 @@ export class AsideDrawerComponent {
   constructor(
     private _authService: AuthService,
     private _localStorageService: LocalStorageService
-  ) {}
+  ) { }
 
   @Input({ required: true }) drawerOpen!: WritableSignal<boolean>;
 
@@ -32,8 +32,8 @@ export class AsideDrawerComponent {
   public logout() {
     this._authService
       .logout$(
-        this._localStorageService.getCrypted('token'),
-        this._localStorageService.getCrypted('refreshToken')
+        this._localStorageService.getDecrypted('token'),
+        this._localStorageService.getDecrypted('refreshToken')
       )
       .subscribe({
         complete: () => {

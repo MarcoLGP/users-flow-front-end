@@ -20,7 +20,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 
     const reqAuth = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${localStorageService.getCrypted('token')}`,
+        Authorization: `Bearer ${localStorageService.getDecrypted('token')}`,
       },
     });
 
@@ -30,7 +30,7 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
           return http
             .post<{ token: string; refreshToken: string }>(
               `${environment.apiUrl}/Auth/refresh-token`,
-              { refreshToken: localStorageService.getCrypted('refreshToken') }
+              { refreshToken: localStorageService.getDecrypted('refreshToken') }
             )
             .pipe(
               switchMap((refreshResponse) => {
@@ -52,9 +52,11 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
                 return next(newReq);
               }),
               catchError((refreshError) => {
-                localStorageService.remove('token');
-                localStorageService.remove('refreshToken');
-                router.navigateByUrl('/');
+                if (refreshError instanceof HttpErrorResponse && refreshError.status === 401) {
+                  localStorageService.remove('token');
+                  localStorageService.remove('refreshToken');
+                  router.navigateByUrl('/');
+                }
                 return throwError(refreshError);
               })
             );

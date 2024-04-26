@@ -1,11 +1,17 @@
-<div class="note_item">
+<div [ngClass]="{note_item_selected: selected}" class="note_item">
     <div class="note_item_user">
         <app-user-avatar />
         <div class="note_item_user_info">
             <span class="note_item_user_info_name">{{author}}</span>
-            <span class="note_item_user_info_time">Hoje · Privado</span>
+            <span class="note_item_user_info_time">{{formatarTempoRelativo(date)}} ·
+            @if(public) {
+                <ng-icon size="12px" [svg]="globeIcon" />
+            } @else {
+                <ng-icon size="12px" [svg]="lockedIcon" />
+            }
+        </span>
         </div>
     </div>
     <span class="note_item_title">{{title}}</span>
-    <span class="note_item_content">{{content}}</span>
+    <span [innerHTML]="nl2br(content)" class="note_item_content">{{content}}</span>
 </div>

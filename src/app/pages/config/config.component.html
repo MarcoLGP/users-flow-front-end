@@ -6,8 +6,8 @@
                 <div class="config_user_avatar">
                     <span>{{userName().charAt(0).toUpperCase()}}</span>
                 </div>
-                <span class="config_user_info_name">{{userName() || "Marco Luca"}}</span>
-                <span class="config_user_info_email">{{userEmail() || 'marco@gmail.com'}}</span>
+                <span class="config_user_info_name">{{userName()}}</span>
+                <span class="config_user_info_email">{{userEmail()}}</span>
             </div>
         </div>
         <div class="config_user_form">
@@ -26,7 +26,11 @@
                         <form (ngSubmit)="changeNameUserFormSubmit()" class="config_box_form" [formGroup]="changeNameForm">
                             <app-form-sign-input [icon]="userIcon" [inputFormGroup]="changeNameForm" placeholder="Seu novo nome" inputLabel="Novo nome" inputControlName="name" />
                             <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesFormName()" />
-                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            @if(!loadingRequestForm()) {
+                                <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            } @else {
+                                <app-spinner class="config_box_form_loading_spinner" />
+                            }
                         </form>
                     </div>
                 }
@@ -36,7 +40,11 @@
                         <form (ngSubmit)="changeEmailUserFormSubmit()" class="config_box_form" [formGroup]="changeEmailForm">
                             <app-form-sign-input [icon]="mailIcon" [inputFormGroup]="changeEmailForm" placeholder="Seu novo email" inputLabel="Email" inputControlName="newEmail" />
                             <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesFormEmail()" />
-                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            @if(!loadingRequestForm()) {
+                                <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            } @else {
+                                <app-spinner class="config_box_form_loading_spinner" />
+                            }
                         </form>
                     </div>
                 }
@@ -47,7 +55,11 @@
                             <app-form-sign-input [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Senha atual" inputLabel="Senha atual" inputControlName="oldPassword" typeInput="password" />
                             <app-form-sign-input style="margin-top: 5px;" [icon]="lockIcon" [inputFormGroup]="changePasswordForm" placeholder="Nova senha" inputLabel="Nova senha" inputControlName="newPassword" typeInput="password" />
                             <app-box-return-form style="margin-top: 8px;" [errorsMessage]="errorMessagesformPassword()" />
-                            <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            @if(!loadingRequestForm()) {
+                                <button type="submit" style="margin-top: 20px;" class="red_app_button" >Alterar</button>
+                            } @else {
+                                <app-spinner class="config_box_form_loading_spinner" />
+                            }
                         </form>
                     </div>
                 }
