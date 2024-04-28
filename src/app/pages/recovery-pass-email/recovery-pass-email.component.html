@@ -9,9 +9,14 @@
         </div>
     } @else {
         <form class="form_sign_container" [formGroup]="recoveryPassEmailForm" (ngSubmit)="submitForm()">
-            <app-form-sign-input [icon]="emailIcon" [inputError]="handleInputError(email)" [inputFormGroup]="recoveryPassEmailForm" inputLabel="Email" placeholder="Digite seu email" inputControlName="email" />
-            <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-            <button style="margin-top: 15px;" class="red_app_button">Recuperar senha</button>
+            @if (loadingRequest()) {
+                <span style="align-self: center;">Verificando...</span>
+                <app-spinner style="align-self: center; margin-top: 10px;" />
+            } @else {
+                <app-form-sign-input [icon]="emailIcon" [inputError]="handleInputError(email)" [inputFormGroup]="recoveryPassEmailForm" inputLabel="Email" placeholder="Digite seu email" inputControlName="email" />
+                <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
+                <button style="margin-top: 15px;" class="red_app_button">Recuperar senha</button>
+            }
         </form>
     }
 </app-sign-layout>

@@ -30,8 +30,9 @@ export class NoteItemListComponent {
   }
 
   public formatarTempoRelativo(data: string) {
+    const dataRecebida = new Date(data.endsWith('Z') ? data : data + 'Z');
+
     const agora = new Date();
-    const dataRecebida = new Date(data);
 
     const diferencaMS = agora.getTime() - dataRecebida.getTime();
 
@@ -40,7 +41,7 @@ export class NoteItemListComponent {
     const umDia = 24 * umaHora;
 
     if (diferencaMS < umMinuto) {
-      return "Agora mesmo";
+      return 'Agora mesmo';
     }
 
     if (diferencaMS < umaHora) {

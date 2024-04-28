@@ -6,7 +6,7 @@ import {
   Input,
   OnInit,
   WritableSignal,
-  signal
+  signal,
 } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AsideDrawerComponent } from '@components/aside-drawer/aside-drawer.component';
@@ -36,7 +36,7 @@ export class DashboardLayoutComponent implements OnInit {
     private _localStorageService: LocalStorageService,
     private _authService: AuthService,
     private _router: Router
-  ) { }
+  ) {}
 
   @Input({ required: true }) public titleRoute!: string;
   @Input({ required: true }) public descriptionRoute!: string;
@@ -51,7 +51,7 @@ export class DashboardLayoutComponent implements OnInit {
   public showDrawNav: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
-    if (typeof localStorage == "undefined") return;
+    if (typeof localStorage == 'undefined') return;
     const token = this._localStorageService.getDecrypted('token');
     if (!token) {
       this._router.navigateByUrl('/');
@@ -62,6 +62,14 @@ export class DashboardLayoutComponent implements OnInit {
         this.userName.set(next);
       },
     });
+    if (this.userName() == '') {
+      this._userService.getUserInfo().subscribe({
+        next: (next) => {
+          this._userService.setUserName(next.name);
+          this._userService.setUserEmail(next.email);
+        },
+      });
+    }
   }
 
   public handleDrawer() {

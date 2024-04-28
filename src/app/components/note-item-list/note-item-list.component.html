@@ -1,6 +1,6 @@
 <div [ngClass]="{note_item_selected: selected}" class="note_item">
     <div class="note_item_user">
-        <app-user-avatar />
+        <app-user-avatar [labelAvatar]="author.charAt(0)" />
         <div class="note_item_user_info">
             <span class="note_item_user_info_name">{{author}}</span>
             <span class="note_item_user_info_time">{{formatarTempoRelativo(date)}} ·

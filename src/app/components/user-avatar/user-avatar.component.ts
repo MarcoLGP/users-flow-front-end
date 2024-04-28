@@ -6,9 +6,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   imports: [],
   templateUrl: './user-avatar.component.html',
   styleUrl: './user-avatar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserAvatarComponent {
   @Input() avatarHeight: number | null = null;
   @Input() avatarWidth: number | null = null;
+  @Input({ required: true }) labelAvatar!: string;
 }

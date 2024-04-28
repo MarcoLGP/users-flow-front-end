@@ -1,36 +1,95 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, WritableSignal, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  WritableSignal,
+  signal,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
-import { ionLockClosedOutline } from '@ng-icons/ionicons';
+import { NgIcon } from '@ng-icons/core';
+import { ionCheckmarkCircle, ionLockClosedOutline } from '@ng-icons/ionicons';
+import { AuthService } from '@services/auth.service';
+import { UserService } from '@services/user.service';
 import { validatorPasswordSign } from '@utils/ValidatorsForms';
 
 @Component({
   selector: 'app-recovery-pass',
   standalone: true,
-  imports: [SignLayoutComponent, FormSignInputComponent, ReactiveFormsModule, CommonModule, BoxReturnFormComponent],
+  imports: [
+    SignLayoutComponent,
+    FormSignInputComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    BoxReturnFormComponent,
+    NgIcon,
+  ],
   templateUrl: './recovery-pass.component.html',
   styleUrl: './recovery-pass.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecoveryPassComponent implements OnInit {
-  constructor(private _route: ActivatedRoute, private _fb: FormBuilder) { };
+  constructor(
+    private _route: ActivatedRoute,
+    private _fb: FormBuilder,
+    private _userService: UserService,
+    private _authService: AuthService,
+    private _router: Router
+  ) {}
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
   public lockIcon: string = ionLockClosedOutline;
+  public successIcon: string = ionCheckmarkCircle;
   public isFormSubmitted: boolean = false;
+
+  public isValidToken: WritableSignal<boolean> = signal<boolean>(false);
+  public invalidTokenErrorMessage: WritableSignal<string> = signal<string>('');
+
+  public successChangePass: WritableSignal<boolean> = signal<boolean>(false);
+
+  public loadingRequest: WritableSignal<boolean> = signal<boolean>(false);
 
   public recoveryPassForm = this._fb.group({
     newPassword: ['', [validatorPasswordSign()]],
-    confirmNewPassword: ['', [validatorPasswordSign()]]
+    confirmNewPassword: ['', [validatorPasswordSign()]],
   });
 
+  private token = this._route.snapshot.params['token'];
+
   ngOnInit(): void {
-    const token = this._route.snapshot.params['token'];
-    console.log(token);
+    this._authService.checkToken$(this.token).subscribe({
+      next: () => {
+        this.isValidToken.set(true);
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.invalidTokenErrorMessage.set(
+            'Infelizmente não foi possível recuperar a senha, tente resgatar novamente'
+          );
+        } else {
+          this.invalidTokenErrorMessage.set(
+            'Infelizmente não foi possível recuperar a senha, por favor tente novamente mais tarde'
+          );
+        }
+      },
+    });
+  }
+
+  public navigateToRecoveryPass() {
+    this._router.navigateByUrl('/recovery-pass-email');
+  }
+
+  public navigateToSignIn() {
+    this._router.navigateByUrl('/');
   }
 
   public handleInputError(inputControl: AbstractControl | null) {
@@ -50,17 +109,34 @@ export class RecoveryPassComponent implements OnInit {
     this.isFormSubmitted = true;
 
     if (this.newPassword?.value !== this.confirmNewPassword?.value) {
-      this.errorsMessages.set(["As senhas precisam ser iguais"]);
+      this.errorsMessages.set(['As senhas precisam ser iguais']);
     }
 
     if (this.confirmNewPassword?.errors) {
-      this.errorsMessages.update((errors) => errors.concat(this.confirmNewPassword?.errors?.['errorMessage']));
+      this.errorsMessages.update((errors) =>
+        errors.concat(this.confirmNewPassword?.errors?.['errorMessage'])
+      );
     }
 
     if (this.newPassword?.errors) {
-      this.errorsMessages.update((errors) => errors.concat(this.newPassword?.errors?.['errorMessage']));
+      this.errorsMessages.update((errors) =>
+        errors.concat(this.newPassword?.errors?.['errorMessage'])
+      );
     }
 
-    if (this.errorsMessages().length === 0) return;
+    if (this.errorsMessages().length > 0) return;
+
+    this.loadingRequest.set(true);
+
+    this._userService
+      .updatePasswordRecoveryUser(this.newPassword!.value!, this.token)
+      .subscribe({
+        next: () => {
+          this.successChangePass.set(true);
+        },
+        error: () => {
+          this.loadingRequest.set(false);
+        },
+      });
   }
 }

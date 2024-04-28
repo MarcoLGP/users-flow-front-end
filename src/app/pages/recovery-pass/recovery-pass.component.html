@@ -1,8 +1,21 @@
 <app-sign-layout [redirectUser]="false">
-    <form [formGroup]="recoveryPassForm" (ngSubmit)="submitForm()" >
-        <app-form-sign-input [inputError]="handleInputError(newPassword)" [inputFormGroup]="recoveryPassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Digite sua nova senha" typeInput="password" inputControlName="newPassword" />
-        <app-form-sign-input [inputError]="handleInputError(confirmNewPassword)" style="margin-top: 5px;" [inputFormGroup]="recoveryPassForm" inputLabel="Confirme sua nova senha" [icon]="lockIcon" placeholder="Confirme sua nova senha" typeInput="password" inputControlName="confirmNewPassword" />
-        <app-box-return-form style="margin-top: 5px;" [errorsMessage]="errorsMessages()" />
-        <button style="margin-top: 15px;" class="red_app_button">Alterar senha</button>
-    </form>
+    <div class="recovery_pass_container">
+        @if(isValidToken() && successChangePass()) {
+            <form [formGroup]="recoveryPassForm" (ngSubmit)="submitForm()">
+                <app-form-sign-input [inputError]="handleInputError(newPassword)" [inputFormGroup]="recoveryPassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Digite sua nova senha" typeInput="password" inputControlName="newPassword" />
+                <app-form-sign-input [inputError]="handleInputError(confirmNewPassword)" style="margin-top: 5px;" [inputFormGroup]="recoveryPassForm" inputLabel="Confirme sua nova senha" [icon]="lockIcon" placeholder="Confirme sua nova senha" typeInput="password" inputControlName="confirmNewPassword" />
+                <app-box-return-form style="margin-top: 5px;" [errorsMessage]="errorsMessages()" />
+                <button type="submit" style="margin-top: 15px;" class="red_app_button">Alterar senha</button>
+            </form>
+        } @else if (isValidToken() && !successChangePass()) {
+            <div class="recovery_pass_success">
+                <ng-icon [svg]="successIcon" size="18px" />
+                <span>Senha alterada com sucesso</span>
+            </div>
+            <button (click)="navigateToSignIn()" style="margin-top: 15px;" class="red_app_button">Fazer login</button>
+        } @else {
+            <app-box-return-form [errorsMessage]="[invalidTokenErrorMessage()]" />
+            <button (click)="navigateToRecoveryPass()" style="margin-top: 15px;" class="red_app_button">Resgatar novamente</button>
+        }
+    </div>
 </app-sign-layout>

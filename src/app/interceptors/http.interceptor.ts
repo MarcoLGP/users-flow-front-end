@@ -10,7 +10,12 @@ import { environment } from 'environments/environment';
 import { throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
-const routesNoTokenAuth = ['Auth/sign-in', 'Auth/sign-up'];
+const routesNoTokenAuth = [
+  'Auth/sign-in',
+  'Auth/sign-up',
+  'User/password-recovery',
+  'Auth/check-token',
+];
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   if (!routesNoTokenAuth.some((r) => req.url.includes(r))) {
@@ -52,7 +57,10 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
                 return next(newReq);
               }),
               catchError((refreshError) => {
-                if (refreshError instanceof HttpErrorResponse && refreshError.status === 401) {
+                if (
+                  refreshError instanceof HttpErrorResponse &&
+                  refreshError.status === 401
+                ) {
                   localStorageService.remove('token');
                   localStorageService.remove('refreshToken');
                   router.navigateByUrl('/');

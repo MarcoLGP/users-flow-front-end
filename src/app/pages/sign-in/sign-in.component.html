@@ -1,15 +1,17 @@
 <app-sign-layout>
-    <form class="form_sign_container" [formGroup]="signInForm" (ngSubmit)="submitForm()">
-        <app-form-sign-input [inputError]="handleInputError(email)" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
-        <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
-        <span routerLink="/recovery-pass-email" class="forgot_password_label">Esqueci minha senha</span>
-        <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-        @if(loadingRequest()) {
-            <app-spinner style="align-self: center; margin-top: 10px;" />
-        } @else {
-            <button style="margin-top: 10px;" class="red_app_button">Entrar</button>
-        }
-    </form>
-    <app-divider-or />
-    <button (click)="navigateToSignUp()" style="margin-top: 10px;" class="app_button">Registre-se</button>
+    <div class="form_sign_container" >
+        <form class="form_sign_container_form" [formGroup]="signInForm" (ngSubmit)="submitForm()">
+            <app-form-sign-input [inputError]="handleInputError(email)" [inputFormGroup]="signInForm" inputLabel="Usuário" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
+            <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signInForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
+            <span routerLink="/recovery-pass-email" class="forgot_password_label">Esqueci minha senha</span>
+            <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
+            @if(loadingRequest()) {
+                <app-spinner style="align-self: center; margin-top: 10px;" />
+            } @else {
+                <button style="margin-top: 10px;" class="red_app_button">Entrar</button>
+            }
+        </form>
+        <app-divider-or />
+        <button (click)="navigateToSignUp()" style="margin-top: 10px;" class="app_button">Registre-se</button>
+    </div>
 </app-sign-layout>

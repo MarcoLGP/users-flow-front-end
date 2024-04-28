@@ -34,7 +34,7 @@ import { UserService } from '@services/user.service';
     DividerOrComponent,
     BoxReturnFormComponent,
     RouterLink,
-    SpinnerComponent
+    SpinnerComponent,
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
@@ -56,7 +56,7 @@ export class SignInComponent {
     private _authService: AuthService,
     private _localStorageService: LocalStorageService,
     private _userService: UserService
-  ) { }
+  ) {}
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
 

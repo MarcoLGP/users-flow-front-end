@@ -4,7 +4,7 @@
             <app-spinner />
         } @else {
             @for (item of userNotes(); track $index) {
-                <app-note-item-list [selected]="$index === indexSelectedNote()" (click)="setNoteSelected($index)" author="Marco luca" [title]="item.title" [content]="item.content" [date]="item.created!"/>
+                <app-note-item-list [selected]="$index === indexSelectedNote()" (click)="setNoteSelected($index)" [public]="item.public" [author]="userName()" [title]="item.title" [content]="item.content" [date]="item.created!"/>
             } @empty {
                 <span>Nenhuma nota criada ainda</span>
             }

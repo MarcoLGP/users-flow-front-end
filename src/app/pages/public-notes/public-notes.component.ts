@@ -1,9 +1,16 @@
-import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  OnInit,
+  WritableSignal,
+  signal,
+} from '@angular/core';
 import { NoteItemListComponent } from '@components/note-item-list/note-item-list.component';
 import { SpinnerComponent } from '@components/spinner/spinner.component';
 import { DashboardLayoutComponent } from '@layouts/dashboard-layout/dashboard-layout.component';
 import { INote } from '@models/Note';
+import { NoteService } from '@services/note.service';
 
 @Component({
   selector: 'app-public-notes',
@@ -13,14 +20,73 @@ import { INote } from '@models/Note';
   styleUrl: './public-notes.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PublicNotesComponent {
-  public publicNotes: INote[] = [
-    {
-      noteId: 1,
-      content: 'Conteúdo bacana de uma note',
-      created: '2022-01-01',
-      title: 'Note bacana',
-      public: true,
-    },
-  ];
+export class PublicNotesComponent implements OnInit {
+  constructor(private _noteService: NoteService) {}
+
+  public publicNotes: WritableSignal<INote[]> = signal([]);
+
+  public loadingNotes: WritableSignal<boolean> = signal(false);
+  public loadingMoreNotes: WritableSignal<boolean> = signal(false);
+  public hasMoreNotes: WritableSignal<boolean> = signal(true);
+
+  private readonly takePublicNotes: number = 10;
+  private actualSkip: number = 10;
+
+  ngOnInit(): void {
+    if (typeof localStorage == 'undefined') return;
+    this.loadingNotes.set(true);
+    this._noteService.getPublicNotes(0, this.takePublicNotes).subscribe({
+      next: (notes) => {
+        if (notes?.length > 0) {
+          this.publicNotes.set(
+            notes.sort(
+              (a, b) =>
+                new Date(b.created).getTime() - new Date(a.created).getTime()
+            )
+          );
+          this.loadingNotes.set(false);
+          if (notes.length == this.takePublicNotes) this.hasMoreNotes.set(true);
+          else this.hasMoreNotes.set(false);
+        }
+      },
+    });
+  }
+
+  public loadMoreNotes() {
+    if (!this.hasMoreNotes() || this.loadingMoreNotes()) return;
+    this.loadingMoreNotes.set(true);
+    this._noteService
+      .getPublicNotes(this.actualSkip, this.takePublicNotes)
+      .subscribe({
+        next: (notes) => {
+          if (notes?.length > 0) {
+            this.publicNotes.set(
+              this.publicNotes()
+                .concat(notes)
+                .sort(
+                  (a, b) =>
+                    new Date(b.created).getTime() -
+                    new Date(a.created).getTime()
+                )
+            );
+            this.loadingMoreNotes.set(false);
+            if (notes.length == this.takePublicNotes)
+              this.hasMoreNotes.set(true);
+            else this.hasMoreNotes.set(false);
+          }
+        },
+      });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(): void {
+    const pos =
+      (document.documentElement.scrollTop || document.body.scrollTop) +
+      window.innerHeight;
+    const max = document.documentElement.scrollHeight;
+
+    if (pos >= max - 100 && !this.loadingNotes()) {
+      this.loadMoreNotes();
+    }
+  }
 }

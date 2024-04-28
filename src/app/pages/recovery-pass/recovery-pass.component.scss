@@ -3,6 +3,24 @@
 
   form {
     margin-top: 6px;
+  }
+
+  .recovery_pass_container {
     width: 80%;
+  }
+
+  .recovery_pass_success {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+    border: 1px solid #28A745;
+    background-color: #c2e4ca;
+    border-radius: 5px;
+    padding: 8px;
+  }
+
+  .recovery_pass_success > ng-icon {
+    color: #28A745;
   }
 }

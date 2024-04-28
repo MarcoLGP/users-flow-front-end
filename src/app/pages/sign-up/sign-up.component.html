@@ -1,15 +1,17 @@
 <app-sign-layout>
-    <form class="form_sign_container" [formGroup]="signUpForm" (ngSubmit)="submitFormSignUp()">
-        <app-form-sign-input [inputError]="handleInputError(name)" [inputFormGroup]="signUpForm" inputLabel="Nome" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
-        <app-form-sign-input [inputError]="handleInputError(email)" style="margin-top: 5px;" [inputFormGroup]="signUpForm" inputLabel="Email" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
-        <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signUpForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
-        <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
-        @if(loadingRequest()) {
-            <app-spinner style="align-self: center; margin-top: 10px;" />
-        } @else {
-            <button style="margin-top: 10px;" class="red_app_button">Registrar</button>
-        }
-    </form>
-    <app-divider-or />
-    <button (click)="navigateToSignIn()" [style.marginTop]="'10px'" class="app_button" >Fazer login</button>
+    <div class="form_sign_container">
+        <form class="form_sign_container_form" [formGroup]="signUpForm" (ngSubmit)="submitFormSignUp()">
+            <app-form-sign-input [inputError]="handleInputError(name)" [inputFormGroup]="signUpForm" inputLabel="Nome" [icon]="userIcon" placeholder="Digite seu nome" inputControlName="name" />
+            <app-form-sign-input [inputError]="handleInputError(email)" style="margin-top: 5px;" [inputFormGroup]="signUpForm" inputLabel="Email" [icon]="mailIcon" placeholder="Digite seu email" inputControlName="email" />
+            <app-form-sign-input [inputError]="handleInputError(password)" style="margin-top: 5px;" [inputFormGroup]="signUpForm" inputLabel="Senha" [icon]="lockIcon" placeholder="Digite sua senha" typeInput="password" inputControllerName="password" inputControlName="password" />
+            <app-box-return-form style="margin-top: 10px;" [errorsMessage]="errorsMessages()" />
+            @if(loadingRequest()) {
+                <app-spinner style="align-self: center; margin-top: 10px;" />
+            } @else {
+                <button style="margin-top: 10px;" class="red_app_button">Registrar</button>
+            }
+        </form>
+        <app-divider-or />
+        <button (click)="navigateToSignIn()" [style.marginTop]="'10px'" class="app_button" >Fazer login</button>
+    </div>
 </app-sign-layout>

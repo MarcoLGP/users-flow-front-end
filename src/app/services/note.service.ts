@@ -9,13 +9,12 @@ import { INote, INoteBase, INoteSelected } from '@models/Note';
   providedIn: 'root',
 })
 export class NoteService {
-  constructor(
-    private _httpClient: HttpClient,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor(private _httpClient: HttpClient) {}
 
-  public getNotes(): Observable<INote[]> {
-    return this._httpClient.get<INote[]>(`${environment.apiUrl}/Note`);
+  public getUserNotes(skip: number, take: number): Observable<INote[]> {
+    return this._httpClient.get<INote[]>(
+      `${environment.apiUrl}/Note?skip=${skip}&take=${take}`
+    );
   }
 
   public addNote(note: INoteBase): Observable<any> {
@@ -30,5 +29,11 @@ export class NoteService {
     return this._httpClient.put(`${environment.apiUrl}/Note/${note.noteId}`, {
       ...note,
     });
+  }
+
+  public getPublicNotes(skip: number, take: number): Observable<INote[]> {
+    return this._httpClient.get<INote[]>(
+      `${environment.apiUrl}/Note/public/all`
+    );
   }
 }

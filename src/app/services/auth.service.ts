@@ -19,7 +19,8 @@ export class AuthService {
     private _httpCliente: HttpClient,
     private _localStorageService: LocalStorageService,
     private _userService: UserService,
-    private _router: Router) { };
+    private _router: Router
+  ) {}
 
   public login$(email: string, password: string): Observable<ISignInResponse> {
     return this._httpCliente.post<ISignInResponse>(
@@ -47,6 +48,17 @@ export class AuthService {
     );
   }
 
+  public checkToken$(token: string): Observable<void> {
+    return this._httpCliente.get<void>(
+      `${environment.apiUrl}/Auth/check-token-recovery-password`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+
   public refreshToken$(
     refreshToken: string
   ): Observable<IRefreshTokenResponse> {
@@ -60,8 +72,16 @@ export class AuthService {
     try {
       this._localStorageService.remove('token');
       this._localStorageService.remove('refreshToken');
-    } catch (error) { };
+    } catch (error) {}
     this._userService.setUserName('');
     this._router.navigateByUrl('/');
+  }
+
+  public forgotPassword$(email: string): Observable<void> {
+    const urlBase = `${environment.urlBase}/recovery-pass`;
+    return this._httpCliente.post<void>(
+      `${environment.apiUrl}/Auth/forgot-password`,
+      { email, urlBase }
+    );
   }
 }

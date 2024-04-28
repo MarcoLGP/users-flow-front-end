@@ -23,6 +23,11 @@ body {
   flex-direction: column;
 }
 
+.form_sign_container_form {
+  display: flex;
+  flex-direction: column;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     background-color: transparent;

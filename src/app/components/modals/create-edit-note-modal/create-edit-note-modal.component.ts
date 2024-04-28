@@ -10,7 +10,12 @@ import {
   WritableSignal,
   signal,
 } from '@angular/core';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
 import { ModalRootComponent } from '@layouts/modal-root/modal-root.component';
 import { ionPencil } from '@ng-icons/ionicons';
@@ -21,7 +26,12 @@ import { BoxReturnFormComponent } from '@components/box-return-form/box-return-f
 @Component({
   selector: 'app-create-edit-note-modal',
   standalone: true,
-  imports: [ModalRootComponent, ReactiveFormsModule, FormSignInputComponent, BoxReturnFormComponent],
+  imports: [
+    ModalRootComponent,
+    ReactiveFormsModule,
+    FormSignInputComponent,
+    BoxReturnFormComponent,
+  ],
   templateUrl: './create-edit-note-modal.component.html',
   styleUrl: './create-edit-note-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +39,7 @@ import { BoxReturnFormComponent } from '@components/box-return-form/box-return-f
 export class CreateEditNoteModalComponent implements AfterViewInit {
   @ViewChild('noteContent') noteContentRef!: ElementRef<HTMLDivElement>;
 
-  constructor(private _fb: FormBuilder, private _noteService: NoteService) { }
+  constructor(private _fb: FormBuilder, private _noteService: NoteService) {}
 
   @Input({ required: true })
   public setOpenCreateEditNoteModal!: WritableSignal<boolean>;
@@ -52,9 +62,12 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
   public isFormSubmitted: boolean = false;
 
   public createNoteForm = this._fb.group({
-    title: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+    title: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(50)],
+    ],
     content: ['', [Validators.required, Validators.minLength(5)]],
-    public: [true],
+    public: [false],
   });
 
   get title() {
@@ -76,7 +89,10 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
     const newNote = {
       title: this.title!.value!,
       content: this.createNoteForm.get('content')?.value?.trim()!,
-      public: this.public!.value!,
+      public:
+        typeof this.public!.value! == 'string'
+          ? this.public!.value! == 'true'
+          : this.public!.value!,
     };
 
     if (this.title?.errors) {
@@ -84,15 +100,21 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
         this.errorsMessages.set(['Título é obrigatório']);
       }
       if (this.title?.errors?.['minlength']) {
-        this.errorsMessages.update((errors) => errors.concat('Título deve ter no minimo 5 caracteres'));
+        this.errorsMessages.update((errors) =>
+          errors.concat('Título deve ter no minimo 5 caracteres')
+        );
       }
       if (this.title?.errors?.['maxlength']) {
-        this.errorsMessages.update((errors) => errors.concat('Título deve ter no maximo 50 caracteres'));
+        this.errorsMessages.update((errors) =>
+          errors.concat('Título deve ter no maximo 50 caracteres')
+        );
       }
     }
 
     if (newNote.content.length < 5) {
-      this.errorsMessages.update((errors) => errors.concat('Conteúdo deve ter no minimo 5 caracteres'));
+      this.errorsMessages.update((errors) =>
+        errors.concat('Conteúdo deve ter no minimo 5 caracteres')
+      );
     }
 
     if (this.errorsMessages().length > 0) return;
@@ -101,9 +123,8 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
       this._noteService
         .editNote({ noteId: this.noteSelected.noteId, ...newNote })
         .subscribe({
-          next: () => { },
-          error: (error) => {
-            console.log(error);
+          error: () => {
+            this.errorsMessages.set(['Ocorreu um erro. Tente novamente']);
           },
           complete: () => {
             this.setOpenCreateEditNoteModal.set(false);
@@ -112,11 +133,8 @@ export class CreateEditNoteModalComponent implements AfterViewInit {
         });
     } else {
       this._noteService.addNote(newNote).subscribe({
-        next: () => {
-          console.log('Next');
-        },
-        error: (error) => {
-          console.log(error);
+        error: () => {
+          this.errorsMessages.set(['Ocorreu um erro. Tente novamente']);
         },
         complete: () => {
           this.setOpenCreateEditNoteModal.set(false);
