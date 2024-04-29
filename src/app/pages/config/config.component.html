@@ -16,7 +16,7 @@
                 <app-config-edit-item (click)="handleClickMenu(1)" [firstItem]="true" style="margin-top: 10px;" label="Nome" [icon]="userIcon" />
                 <app-config-edit-item (click)="handleClickMenu(2)" label="Email" [icon]="mailIcon" />
                 <app-config-edit-item (click)="handleClickMenu(3)" label="Senha" [icon]="lockIcon" />
-                <app-config-edit-item style="color: red;" label="Deletar conta" [icon]="trashIcon" />
+                <app-config-edit-item (click)="handleClickMenu(4)" style="color: red;" label="Deletar conta" [icon]="trashIcon" />
             </div>
 
             @switch (selectedIndexMenu) {
@@ -61,6 +61,12 @@
                                 <app-spinner class="config_box_form_loading_spinner" />
                             }
                         </form>
+                    </div>
+                }
+                @case (4) {
+                    <div class="config_user_box">
+                        <h3 class="config_box_title">Deseja realmente deletar a sua conta ? essa ação é irreversível.</h3>
+                        <button (click)="deleteUser()" style="margin-top: 20px;" class="red_app_button" >Deletar conta</button>
                     </div>
                 }
             }

@@ -54,7 +54,7 @@ export class UserNotesComponent implements OnInit {
   private readonly takeUserNotes: number = 10;
 
   ngOnInit(): void {
-    if (typeof localStorage != 'undefined') this.getSetNotesUser();
+    this.getSetNotesUser();
   }
   public getSetNotesUser() {
     this.loadingNotes.set(true);

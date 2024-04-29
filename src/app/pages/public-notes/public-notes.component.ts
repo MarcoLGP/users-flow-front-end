@@ -33,7 +33,6 @@ export class PublicNotesComponent implements OnInit {
   private actualSkip: number = 10;
 
   ngOnInit(): void {
-    if (typeof localStorage == 'undefined') return;
     this.loadingNotes.set(true);
     this._noteService.getPublicNotes(0, this.takePublicNotes).subscribe({
       next: (notes) => {
