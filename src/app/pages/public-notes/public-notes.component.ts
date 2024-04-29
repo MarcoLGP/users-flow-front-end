@@ -45,6 +45,8 @@ export class PublicNotesComponent implements OnInit {
           );
           if (notes.length == this.takePublicNotes) this.hasMoreNotes.set(true);
           else this.hasMoreNotes.set(false);
+        } else {
+          this.hasMoreNotes.set(false);
         }
       },
       error: () => {
@@ -57,7 +59,8 @@ export class PublicNotesComponent implements OnInit {
   }
 
   public loadMoreNotes() {
-    if (!this.hasMoreNotes() || this.loadingMoreNotes()) return;
+    if (!this.hasMoreNotes() || this.loadingMoreNotes())
+      return;
     this.loadingMoreNotes.set(true);
     this._noteService
       .getPublicNotes(this.actualSkip, this.takePublicNotes)
@@ -73,12 +76,21 @@ export class PublicNotesComponent implements OnInit {
                     new Date(a.created).getTime()
                 )
             );
-            this.loadingMoreNotes.set(false);
             if (notes.length == this.takePublicNotes)
               this.hasMoreNotes.set(true);
             else this.hasMoreNotes.set(false);
+          } else {
+            this.hasMoreNotes.set(false);
           }
         },
+        error: () => {
+          this.loadingMoreNotes.set(false);
+          this.hasMoreNotes.set(false);
+        },
+        complete: () => {
+          this.loadingMoreNotes.set(false);
+          this.actualSkip += this.takePublicNotes;
+        }
       });
   }
 

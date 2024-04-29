@@ -39,7 +39,7 @@ import { BoxReturnFormComponent } from '@components/box-return-form/box-return-f
 export class CreateEditNoteModalComponent implements AfterViewInit {
   @ViewChild('noteContent') noteContentRef!: ElementRef<HTMLDivElement>;
 
-  constructor(private _fb: FormBuilder, private _noteService: NoteService) {}
+  constructor(private _fb: FormBuilder, private _noteService: NoteService) { }
 
   @Input({ required: true })
   public setOpenCreateEditNoteModal!: WritableSignal<boolean>;

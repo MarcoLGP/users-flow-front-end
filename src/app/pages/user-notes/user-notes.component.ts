@@ -89,7 +89,6 @@ export class UserNotesComponent implements OnInit {
         .subscribe({
           complete: () => {
             this.indexSelectedNote.set(null);
-            this.actualSkip = 10;
             this.getSetNotesUser();
           }
         })
@@ -134,8 +133,12 @@ export class UserNotesComponent implements OnInit {
     }
   }
 
-  updateNotesUser(formResult: any) {
+  updateNotesUser(formResult: { success: boolean }) {
     if (formResult?.success == true) {
+      if (this.userNotes().length > this.takeUserNotes)
+        this.hasMoreNotes.set(true);
+      this.userNotes.set([]);
+      this.indexSelectedNote.set(null);
       this.actualSkip = 10;
       this.getSetNotesUser();
     }

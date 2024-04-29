@@ -9,7 +9,7 @@ import { INote, INoteBase, INoteSelected } from '@models/Note';
   providedIn: 'root',
 })
 export class NoteService {
-  constructor(private _httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) { }
 
   public getUserNotes(skip: number, take: number): Observable<INote[]> {
     return this._httpClient.get<INote[]>(
@@ -33,7 +33,7 @@ export class NoteService {
 
   public getPublicNotes(skip: number, take: number): Observable<INote[]> {
     return this._httpClient.get<INote[]>(
-      `${environment.apiUrl}/Note/public/all`
+      `${environment.apiUrl}/Note/public/all?skip=${skip}&take=${take}`
     );
   }
 }
