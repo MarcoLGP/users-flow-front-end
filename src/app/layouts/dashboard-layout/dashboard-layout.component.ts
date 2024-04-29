@@ -51,12 +51,6 @@ export class DashboardLayoutComponent implements OnInit {
   public showDrawNav: WritableSignal<boolean> = signal(false);
 
   ngOnInit(): void {
-    if (typeof localStorage == 'undefined') return;
-    const token = this._localStorageService.getDecrypted('token');
-    if (!token) {
-      this._router.navigateByUrl('/');
-      return;
-    }
     this._userService.userName.subscribe({
       next: (next) => {
         this.userName.set(next);

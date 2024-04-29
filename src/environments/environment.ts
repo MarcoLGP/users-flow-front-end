@@ -1,6 +1,6 @@
 export const environment = {
   env: 'prod',
-  apiUrl: 'http://usersflow.runasp.net',
-  urlBase: 'http://usersflow.runasp.net',
+  apiUrl: 'https://usersflow.runasp.net',
+  urlBase: 'https://users-flow.vercel.app',
   cryptoKey: 'sdkakskxmmcjvjcvjjkdsdksk!@#$#$@$#$%%$$RFGBFDSCCVTHER@$##$%',
 };
