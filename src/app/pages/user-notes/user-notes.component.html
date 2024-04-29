@@ -10,7 +10,7 @@
             }
         }
     </div>
-    <app-fab-button [isEditNote]="isEditNote" [openCreateEditNoteModal]="addEditNoteModalOpen" [showSubButtons]="indexSelectedNote() !== null && !hideFabButton()" />
+    <app-fab-button (deleteSelectedNote)="deleteSelectedNote($event)" [isEditNote]="isEditNote" [openCreateEditNoteModal]="addEditNoteModalOpen" [showSubButtons]="indexSelectedNote() !== null" />
     @if (addEditNoteModalOpen()) {
         <app-create-edit-note-modal (successFormEvent)="updateNotesUser($event)" [noteSelected]="handleNoteSelected()" [isEdit]="isEditNote()" [isEdit]="isEditNote()" [setOpenCreateEditNoteModal]="addEditNoteModalOpen" />
     }

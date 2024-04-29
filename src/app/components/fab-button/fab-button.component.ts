@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, Output, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, WritableSignal, EventEmitter } from '@angular/core';
 import { NgIcon } from '@ng-icons/core';
 import { ionPencilOutline, ionTrashOutline } from '@ng-icons/ionicons';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-fab-button',
@@ -15,6 +14,8 @@ export class FabButtonComponent {
   @Input({ required: true }) showSubButtons: boolean = false;
   @Input({ required: true }) openCreateEditNoteModal!: WritableSignal<boolean>;
   @Input({ required: true }) isEditNote!: WritableSignal<boolean>;
+
+  @Output() deleteSelectedNote = new EventEmitter<boolean>();
 
   public pencilIcon: string = ionPencilOutline;
   public trashIcon: string = ionTrashOutline;
@@ -30,6 +31,6 @@ export class FabButtonComponent {
   }
 
   public clickDeleteNoteHandler() {
-
+    this.deleteSelectedNote.emit(true);
   }
 }

@@ -9,9 +9,8 @@
 
   .user_notes_list_container {
     padding: 15px 0px;
-    background-color: #f0f2f5;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 10px;
     justify-content: center;
   }

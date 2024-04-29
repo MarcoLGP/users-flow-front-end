@@ -238,12 +238,6 @@ export class ConfigComponent implements OnInit {
 
   public deleteUser() {
     this._userService.deleteUser().subscribe({
-      next: (next) => {
-        console.log(next);
-      },
-      error: (error) => {
-        console.log(error);
-      },
       complete: () => {
         this._localStorageService.remove('token');
         this._localStorageService.remove('refreshToken');

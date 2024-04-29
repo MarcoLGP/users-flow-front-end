@@ -11,12 +11,21 @@ export const authGuard: CanActivateFn = () => {
   }
 
   const localStorageService = inject(LocalStorageService);
-  if (
-    !localStorageService.getDecrypted('token') ||
-    !localStorageService.getDecrypted('refreshToken')
-  ) {
+
+  const token = localStorageService.getDecrypted('token');
+  const refreshToken = localStorageService.getDecrypted('refreshToken');
+
+  if (!token || !refreshToken) {
+
+    if (token)
+      localStorageService.remove('token');
+
+    if (refreshToken)
+      localStorageService.remove('refreshToken');
+
     const router = inject(Router);
     router.navigateByUrl('/');
   }
+
   return true;
 };

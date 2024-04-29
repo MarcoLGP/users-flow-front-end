@@ -42,7 +42,7 @@ export class RecoveryPassEmailComponent {
     private _fb: FormBuilder,
     private _router: Router,
     private _authService: AuthService
-  ) {}
+  ) { }
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
   public isFormSubmitted: boolean = false;
@@ -74,7 +74,6 @@ export class RecoveryPassEmailComponent {
   public emailIcon: string = ionMailOutline;
 
   public submitForm() {
-    console.log('submitForm', this.email);
     this.isFormSubmitted = true;
     this.errorsMessages.set([]);
 

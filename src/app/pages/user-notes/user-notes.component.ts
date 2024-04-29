@@ -35,14 +35,13 @@ export class UserNotesComponent implements OnInit {
   constructor(
     private _noteService: NoteService,
     private _userService: UserService
-  ) {}
+  ) { }
 
   public userNotes: WritableSignal<INote[]> = signal([]);
   public indexSelectedNote: WritableSignal<number | null> = signal(null);
 
   public isEditNote: WritableSignal<boolean> = signal(false);
   public addEditNoteModalOpen: WritableSignal<boolean> = signal(false);
-  public hideFabButton: WritableSignal<boolean> = signal(false);
 
   public loadingNotes: WritableSignal<boolean> = signal(false);
   public loadingMoreNotes: WritableSignal<boolean> = signal(false);
@@ -82,6 +81,19 @@ export class UserNotesComponent implements OnInit {
         this.userName.set(next);
       },
     });
+  }
+
+  public deleteSelectedNote(event: boolean) {
+    if (event) {
+      this._noteService.deleteNote(this.userNotes()[this.indexSelectedNote()!].noteId!)
+        .subscribe({
+          complete: () => {
+            this.indexSelectedNote.set(null);
+            this.actualSkip = 10;
+            this.getSetNotesUser();
+          }
+        })
+    }
   }
 
   public loadMoreNotes() {
@@ -127,11 +139,6 @@ export class UserNotesComponent implements OnInit {
       this.actualSkip = 10;
       this.getSetNotesUser();
     }
-  }
-
-  public handleDrawNavOpen(open: boolean) {
-    if (open) this.hideFabButton.set(true);
-    else this.hideFabButton.set(false);
   }
 
   public setNoteSelected(index: number) {

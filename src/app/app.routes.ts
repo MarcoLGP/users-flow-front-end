@@ -7,15 +7,18 @@ import { SignInComponent } from '@pages/sign-in/sign-in.component';
 import { SignUpComponent } from '@pages/sign-up/sign-up.component';
 import { UserNotesComponent } from '@pages/user-notes/user-notes.component';
 import { authGuard } from './guards/auth.guard';
+import { isUserLoggedGuard } from './guards/is-user-logged.guard';
 
 export const routes: Routes = [
   {
     path: '',
     component: SignInComponent,
+    canActivate: [isUserLoggedGuard]
   },
   {
     path: 'register',
     component: SignUpComponent,
+    canActivate: [isUserLoggedGuard]
   },
   {
     path: 'recovery-pass/:token',
@@ -24,6 +27,7 @@ export const routes: Routes = [
   {
     path: 'recovery-pass-email',
     component: RecoveryPassEmailComponent,
+    canActivate: [isUserLoggedGuard]
   },
   {
     path: 'notes',

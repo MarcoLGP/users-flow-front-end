@@ -21,7 +21,7 @@ import { NoteService } from '@services/note.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PublicNotesComponent implements OnInit {
-  constructor(private _noteService: NoteService) {}
+  constructor(private _noteService: NoteService) { }
 
   public publicNotes: WritableSignal<INote[]> = signal([]);
 
