@@ -1,27 +1,19 @@
-# SistemaCadastroAngular
+# Projeto Users Flow (Front-end)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+## Motivação
+Este projeto tem intuito de ajudar os devs iniciantes, simulando o mais próximo possível o seu primeiro contato no mercado de trabalho onde há grandes chances de assumir um projeto já em andamento, onde terá que desenvolver melhorias e novas funcionalidades, além é claro nos primeiros momentos buscar entender a lógica de um outro colega dev, ou quem sabe outros colegas.
 
-## Development server
+## Sugestão de melhorias
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1) Observar no fonte da aplicação onde há repetição de código e buscar uma solução para encapsular o código repetido e distribuir pela aplicação.
+2) (Avançado) Desenvolver técnicas de caching mais robustas no servidor SSR.
+3) Desenvolver testes unitários dos componentes/serviços/guards/interceptors/etc da aplicação.
+4) Integrar um serviço para armazenar de forma segura as variáveis de ambiente expostas da aplicação (AWS Secrets Manager, Azure Key Vault, Google Cloud Secret Manager, HashiCorp Vault).
+5) Adicionar uma regra de negócio no backend e depois tratar no front de notas ocultas, por exemplo: caso uma nota seja oculta o seu conteúdo só deve ser exibido se o usuário digitar sua senha de forma correta na aplicação, ou então, se preferir uma regra mais robusta, uma senha para cada nota de forma individual que o usuário deve autenticar para exibir o conteúdo, essa nota não deve ser pública.
 
-## Code scaffolding
+## Considerações finais
+O projeto é nosso ! 
+Sinta-se a vontade para modifica-lo como quiser e colocar a sua versão em produção.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Assim, permanecem agora estes três: a fé, a esperança e o amor. O maior deles, porém, é o amor.
+### 1 Coríntios 13:13
