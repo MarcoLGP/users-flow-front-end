@@ -1,13 +1,16 @@
 <app-sign-layout [redirectUser]="false">
     <div class="recovery_pass_container">
-        @if(isValidToken() && successChangePass()) {
+        @if (checkingToken()) {
+            <span style="align-self: center;">Verificando...</span>
+            <app-spinner style="align-self: center; margin-top: 10px;" />
+        } @else if(isValidToken() && !successChangePass()) {
             <form [formGroup]="recoveryPassForm" (ngSubmit)="submitForm()">
                 <app-form-sign-input [inputError]="handleInputError(newPassword)" [inputFormGroup]="recoveryPassForm" inputLabel="Nova senha" [icon]="lockIcon" placeholder="Digite sua nova senha" typeInput="password" inputControlName="newPassword" />
                 <app-form-sign-input [inputError]="handleInputError(confirmNewPassword)" style="margin-top: 5px;" [inputFormGroup]="recoveryPassForm" inputLabel="Confirme sua nova senha" [icon]="lockIcon" placeholder="Confirme sua nova senha" typeInput="password" inputControlName="confirmNewPassword" />
                 <app-box-return-form style="margin-top: 5px;" [errorsMessage]="errorsMessages()" />
                 <button type="submit" style="margin-top: 15px;" class="red_app_button">Alterar senha</button>
             </form>
-        } @else if (isValidToken() && !successChangePass()) {
+        } @else if (isValidToken() && successChangePass()) {
             <div class="recovery_pass_success">
                 <ng-icon [svg]="successIcon" size="18px" />
                 <span>Senha alterada com sucesso</span>

@@ -7,6 +7,8 @@
 
   .recovery_pass_container {
     width: 80%;
+    display: flex;
+    flex-direction: column;
   }
 
   .recovery_pass_success {

@@ -15,6 +15,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoxReturnFormComponent } from '@components/box-return-form/box-return-form.component';
 import { FormSignInputComponent } from '@components/form-sign-input/form-sign-input.component';
+import { SpinnerComponent } from '@components/spinner/spinner.component';
 import { SignLayoutComponent } from '@layouts/sign-layout/sign-layout.component';
 import { NgIcon } from '@ng-icons/core';
 import { ionCheckmarkCircle, ionLockClosedOutline } from '@ng-icons/ionicons';
@@ -32,6 +33,7 @@ import { validatorPasswordSign } from '@utils/ValidatorsForms';
     CommonModule,
     BoxReturnFormComponent,
     NgIcon,
+    SpinnerComponent
   ],
   templateUrl: './recovery-pass.component.html',
   styleUrl: './recovery-pass.component.scss',
@@ -44,7 +46,7 @@ export class RecoveryPassComponent implements OnInit {
     private _userService: UserService,
     private _authService: AuthService,
     private _router: Router
-  ) {}
+  ) { }
 
   public errorsMessages: WritableSignal<string[]> = signal([]);
   public lockIcon: string = ionLockClosedOutline;
@@ -57,6 +59,7 @@ export class RecoveryPassComponent implements OnInit {
   public successChangePass: WritableSignal<boolean> = signal<boolean>(false);
 
   public loadingRequest: WritableSignal<boolean> = signal<boolean>(false);
+  public checkingToken: WritableSignal<boolean> = signal<boolean>(true);
 
   public recoveryPassForm = this._fb.group({
     newPassword: ['', [validatorPasswordSign()]],
@@ -69,6 +72,7 @@ export class RecoveryPassComponent implements OnInit {
     this._authService.checkToken$(this.token).subscribe({
       next: () => {
         this.isValidToken.set(true);
+        this.checkingToken.set(false);
       },
       error: (error: HttpErrorResponse) => {
         if (error.status === 401) {
@@ -80,6 +84,7 @@ export class RecoveryPassComponent implements OnInit {
             'Infelizmente não foi possível recuperar a senha, por favor tente novamente mais tarde'
           );
         }
+        this.checkingToken.set(false);
       },
     });
   }
