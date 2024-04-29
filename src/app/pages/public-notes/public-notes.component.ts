@@ -43,10 +43,15 @@ export class PublicNotesComponent implements OnInit {
                 new Date(b.created).getTime() - new Date(a.created).getTime()
             )
           );
-          this.loadingNotes.set(false);
           if (notes.length == this.takePublicNotes) this.hasMoreNotes.set(true);
           else this.hasMoreNotes.set(false);
         }
+      },
+      error: () => {
+        this.loadingNotes.set(false);
+      },
+      complete: () => {
+        this.loadingNotes.set(false);
       },
     });
   }
