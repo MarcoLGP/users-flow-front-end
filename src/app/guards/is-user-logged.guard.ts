@@ -13,12 +13,10 @@ export const isUserLoggedGuard: CanActivateFn = () => {
   const localStorageService = inject(LocalStorageService);
 
   if (localStorageService.getDecrypted('token') && localStorageService.getDecrypted('refreshToken')) {
-    console.log("false")
     const router = inject(Router);
     router.navigateByUrl('/notes');
 
     return false;
   }
-  console.log("true")
   return true;
 };
